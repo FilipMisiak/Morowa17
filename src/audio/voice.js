@@ -33,6 +33,11 @@ SPEAKERS.zolty = { ...SPEAKERS.wspollokator, f0: 135, label: 'ŻÓŁTA KURTKA', 
 SPEAKERS.meczennik = { ...SPEAKERS.gospodarz, f0: 80, label: 'MĘCZENNIK', tag: '#a8c898' };
 SPEAKERS.maska = { ...SPEAKERS.gospodarz, f0: 70, label: 'MASKA', tag: '#b89868' };
 SPEAKERS.brazowy = { ...SPEAKERS.gospodarz, f0: 100, label: 'BRĄZOWA KURTKA', tag: '#a8a050' };
+// tape 2 minor characters: label shown next to the subtitle
+for (const [id, label, tag, f0] of [
+  ['czapka', 'CZAPKA', '#6ac8c0', 110], ['kapelusz', 'KAPELUSZ', '#8ab870', 95], ['bluza', 'ŻÓŁTA BLUZA', '#c8d040', 88],
+  ['szarak', 'SZARA KURTKA', '#a8b098', 100], ['chudy', 'CHUDY', '#c8d0c0', 75],
+]) SPEAKERS[id] = { ...SPEAKERS.gospodarz, f0, label, tag };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 
 const chains = new Map();

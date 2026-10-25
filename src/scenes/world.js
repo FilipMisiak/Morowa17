@@ -9,6 +9,7 @@ const loaders = {
   las: async () => (await import('./locations/las.js')).buildLas(),
   podworko: async () => (await import('./locations/podworko.js')).buildPodworko(),
   ogrod: async () => (await import('./locations/ogrod.js')).buildOgrod(),
+  grill: async () => (await import('./locations/grill.js')).buildGrill(),
   poddasze: async () => (await import('./locations/poddasze.js')).buildPoddasze(),
   zima: async () => (await import('./locations/zima.js')).buildZima(),
   piwnica: async () => (await import('./locations/piwnica.js')).buildPiwnica(),

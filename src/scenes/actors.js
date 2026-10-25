@@ -11,6 +11,7 @@ import zoltyDef from './characters/zolty.js';
 import meczennikDef from './characters/meczennik.js';
 import maskaDef from './characters/maska.js';
 import brazowyDef from './characters/brazowy.js';
+import tape2Defs from './characters/tasma2.js';
 
 const LOOK = new THREE.Vector3();
 
@@ -47,6 +48,7 @@ export function buildActors(scene) {
   character(meczennikDef);
   character(maskaDef);
   character(brazowyDef);
+  tape2Defs.forEach(character);
   const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
   bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
