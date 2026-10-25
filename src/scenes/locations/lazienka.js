@@ -54,6 +54,7 @@ export function buildLazienka() {
     nodes: {
       wanna: { label: 'WANNA', pos: [0.9, 1.7, 1.0], look: [0.2, 0.4, -0.9], fov: 55 },
       blat:  { label: 'BLAT',  pos: [-0.2, 1.5, 1.1], look: [-1.2, 0.9, 0.2], fov: 52 },
+      izba:  { label: 'KAFLE', pos: [0.6, 1.45, 0.9], look: [-1.5, 1.3, -0.3], fov: 50 },
     },
     startCamera: 'wanna',
     /** The mass in the tub breathes on the stepped clock; the bulb flickers more with madness. */

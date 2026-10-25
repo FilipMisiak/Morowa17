@@ -28,6 +28,7 @@ export const SPEAKERS = {
 // label/tag = who is shown next to the subtitle so the player always knows who speaks
 SPEAKERS.konon = { ...SPEAKERS.gospodarz, label: 'KONON', tag: '#e6c277' };
 SPEAKERS.major = { ...SPEAKERS.wspollokator, label: 'MAJOR', tag: '#8fc3b0' };
+SPEAKERS.gosc = { ...SPEAKERS.wspollokator, f0: 118, label: 'PAN', tag: '#d8c060' };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 
 const chains = new Map();

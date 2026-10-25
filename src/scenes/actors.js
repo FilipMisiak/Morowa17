@@ -6,6 +6,7 @@ import { createSprite } from './characters/sprite.js';
 import { visemeOf } from './characters/draw.js';
 import kononDef from './characters/konon.js';
 import majorDef from './characters/major.js';
+import goscDef from './characters/gosc.js';
 
 const LOOK = new THREE.Vector3();
 
@@ -37,6 +38,7 @@ export function buildActors(scene) {
   };
   character(kononDef);
   character(majorDef);
+  character(goscDef);
   const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
   bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
