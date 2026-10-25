@@ -12,6 +12,8 @@ const plain = (c) => c.toLowerCase().replace('ł', 'l').normalize('NFD').replace
  */
 export function initRituals({ cabin }) {
   let typing = false;
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const field = document.getElementById('type-field'); // focusing it opens the on-screen keyboard
 
   bus.on('interact:desk', () => {
     if (typing || state.level !== 'running') return;
@@ -20,18 +22,16 @@ export function initRituals({ cabin }) {
     let i = 0;
     typing = state.flags.typing = true;
     cabin.paper.typed('');
-    bus.emit('toast', 'PISZ — Esc przerywa');
+    bus.emit('toast', touch ? 'PISZ — schowaj klawiaturę, by przerwać' : 'PISZ — Esc przerywa');
 
     const done = (finished) => {
       window.removeEventListener('keydown', onKey);
+      field.removeEventListener('input', onInput); field.removeEventListener('blur', onBlur); field.blur();
       typing = state.flags.typing = false;
       if (finished) { addMadness(-0.15); state.flags.lettersDone = (state.flags.lettersDone ?? 0) + 1; bus.emit('letter:done'); }
     };
-    const onKey = (e) => {
-      if (e.key === 'Escape') return done(false);
-      if (e.key.length !== 1) return;
-      e.preventDefault();
-      if (plain(e.key) === plain(text[i])) {
+    const type = (key) => {
+      if (plain(key) === plain(text[i])) {
         chatterTick(text[i], { base: 90, madness: state.madness });
         i++;
         while (i < text.length && !/[\p{L}\p{N}]/u.test(text[i])) i++; // punctuation and spaces type themselves
@@ -39,6 +39,15 @@ export function initRituals({ cabin }) {
         if (i >= text.length) done(true);
       } else { kick(0.25); addMadness(0.01); }
     };
+    const onKey = (e) => {
+      if (e.key === 'Escape') return done(false);
+      if (touch || e.key.length !== 1) return;
+      e.preventDefault();
+      type(e.key);
+    };
+    const onInput = () => { for (const ch of field.value) if (typing) type(ch); field.value = ''; };
+    const onBlur = () => done(false); // keyboard dismissed = letter abandoned
     window.addEventListener('keydown', onKey);
+    if (touch) { field.addEventListener('input', onInput); field.addEventListener('blur', onBlur); field.focus(); }
   });
 }

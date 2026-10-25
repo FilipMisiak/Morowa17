@@ -8,7 +8,6 @@
  *   youtubeIndex: 1,            // position in the YouTube playlist (1..20)
  *   title: '...',               // title of the original episode
  *   status: 'stub' | 'wip' | 'done',
- *   sandbox: false,             // true = no verdict at the end (prologue)
  *   startCamera: 'door',        // camera node the level opens on
  *   letter: '...',              // text of the typewriter letter (verbatim from the lore)
  *   items: { kaseta: 1, bateria: 1, wegiel: 2, klodka: 1, przysmak: 2 },   // starting inventory

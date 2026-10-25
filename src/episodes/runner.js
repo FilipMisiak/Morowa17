@@ -7,9 +7,8 @@ import { sfx } from '../audio/drone.js';
 
 const modules = import.meta.glob('./tasma*.js'); // lazy: one chunk per episode
 
-/** The canonical list of 20 episodes (+ prologue). Titles are filled in by the episode modules. */
+/** The canonical list of 20 episodes (tape 1: 1-10, tape 2: 11-20). */
 export const EPISODE_LIST = [
-  { id: 'tasma0_prolog', tape: 0, index: 0, youtubeIndex: 0, title: 'Taśma Zerowa (prolog / test)' },
   ...Array.from({ length: 20 }, (_, i) => {
     const tape = i < 10 ? 1 : 2, index = (i % 10) + 1;
     return { id: `tasma${tape}_ep${String(index).padStart(2, '0')}`, tape, index, youtubeIndex: i + 1, title: '' };
@@ -48,7 +47,7 @@ export async function runEpisode(ep, ctx) {
   state.episodeId = ep.id;
   state.flags.letter = ep.letter;
   state.tapeSeconds = 0;
-  document.getElementById('hud-ep').textContent = ep.tape === 0 ? '0' : `${ep.tape} · ${String(ep.index).padStart(2, '0')}`;
+  document.getElementById('hud-ep').textContent = `${ep.tape} · ${String(ep.index).padStart(2, '0')}`;
   ctx.rig.aim = 1;
   ctx.actors.hideAll();
   ctx.cabin.setHatch(0);
@@ -64,7 +63,6 @@ export async function runEpisode(ep, ctx) {
   }
   if (token !== runToken) return;
   await ep.teardown?.(ctx);
-  if (ep.sandbox) return; // prologue: no verdict
   const won = state.coverage >= PASS_COVERAGE;
   state.level = won ? 'won' : 'lost';
   bus.emit('level:end', { won, reason: won ? '' : 'Za mało materiału — nie nagrałeś wszystkich scen.', next: nextEpisodeId(ep.id) });

@@ -26,8 +26,15 @@ export function createInput({ canvas, pipeline, getCamera, getHotspots, onHover 
   });
 
   window.addEventListener('pointerdown', (e) => {
-    if (!enabled || e.button !== 0 || state.cam.raised || e.target.closest?.('#hud-cams, #hud-items, #hud-rec-btn, #menu, #start, #result')) return;
-    const h = pick(pipeline.pointerToNDC(e));
+    const over = e.target.closest?.('#hud-cams, #hud-items, #hud-rec-btn, #hud-tools, #menu, #help, #start, #result');
+    const ndc = pipeline.pointerToNDC(e);
+    if (e.pointerType !== 'mouse' && ndc && !over) { // touch has no hover: a tap aims and highlights first
+      pointer.copy(ndc);
+      const t = pick(ndc);
+      if (t?.id !== hovered?.id) { hovered = t; onHover?.(t); }
+    }
+    if (!enabled || e.button !== 0 || state.cam.raised || over) return;
+    const h = pick(ndc);
     if (h) bus.emit('interact:' + h.id, h);
   });
 

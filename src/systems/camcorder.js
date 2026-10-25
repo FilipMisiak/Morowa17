@@ -39,12 +39,12 @@ export function createCamcorder({ rig, actors, recording }) {
     setRaised(true);
   });
   window.addEventListener('keyup', (e) => { if (e.code === 'Space') setRaised(false); });
-  window.addEventListener('wheel', (e) => {
-    c().zoom = Math.min(2.5, Math.max(1, c().zoom - Math.sign(e.deltaY) * 0.15));
-  }, { passive: true });
+  const zoomBy = (d) => { c().zoom = Math.min(2.5, Math.max(1, c().zoom + d)); };
+  window.addEventListener('wheel', (e) => zoomBy(-Math.sign(e.deltaY) * 0.15), { passive: true });
 
   return {
     setRaised,
+    zoomBy,
     toggle: () => setRaised(!c().raised),
     update(dt) {
       if (state.level !== 'running') { if (c().raised) setRaised(false); return; }

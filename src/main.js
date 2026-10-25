@@ -51,7 +51,7 @@ rig.goTo('door');
 let currentId = null;
 async function play(id) {
   currentId = id;
-  if (id !== 'tasma0_prolog') save.visit(id);
+  save.visit(id);
   result.hide();
   const ep = await loadEpisode(id);
   console.info('[episode]', ep.id, ep.status);
@@ -115,7 +115,7 @@ const begin = async (id) => {
   started = true;
   play(params.get('ep') || id);
 };
-document.getElementById('btn-start').addEventListener('click', () => begin('tasma0_prolog'));
+document.getElementById('btn-start').addEventListener('click', () => begin('tasma1_ep01'));
 const btnContinue = document.getElementById('btn-continue');
 if (save.hasProgress()) {
   btnContinue.hidden = false;
@@ -131,6 +131,14 @@ window.addEventListener('keydown', (e) => {
   else if (e.key === 'Escape') help.hidden = true;
 });
 help.addEventListener('click', () => { help.hidden = true; });
+
+// touch / on-screen tool buttons
+const $ = (id) => document.getElementById(id);
+$('t-zin').onclick = () => camcorder.zoomBy(0.25);
+$('t-zout').onclick = () => camcorder.zoomBy(-0.25);
+$('t-menu').onclick = () => menu.toggle();
+$('t-help').onclick = () => { help.hidden = !help.hidden; };
+$('t-full').onclick = () => { document.fullscreenElement ? document.exitFullscreen?.() : document.documentElement.requestFullscreen?.().catch(() => {}); };
 
 // ---- dev keys ---------------------------------------------------------------------------------
 window.addEventListener('keydown', (e) => {

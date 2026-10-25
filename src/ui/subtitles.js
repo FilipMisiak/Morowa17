@@ -4,6 +4,7 @@ import { chatterTick } from '../audio/chatter.js';
 import { speak, SPEAKERS } from '../audio/voice.js';
 
 const root = () => document.getElementById('subs');
+const slots = new Map(); // position key -> element currently shown there
 
 const POS = {
   bottom: { left: '50%', bottom: '9%', transform: 'translateX(-50%)', textAlign: 'center' },
@@ -45,6 +46,9 @@ export function playLine(entry) {
     who.style.color = sp.tag;
     el.append(who, body);
   } else el.append(body);
+  const slot = typeof pos === 'object' ? `${pos.x},${pos.y}` : pos;
+  slots.get(slot)?.remove(); // never let two lines pile up in one place
+  slots.set(slot, el);
   root().appendChild(el);
 
   if (kind !== 'caption' && entry.voice !== false) speak(text, { speaker, charInterval: ms / 1000 });
@@ -62,7 +66,7 @@ export function playLine(entry) {
       body.textContent = text.slice(0, shown);
       el.classList.toggle('shake', state.madness > 0.55);
       if (shown < text.length) requestAnimationFrame(tick);
-      else { resolve(); setTimeout(() => el.remove(), hold); }
+      else { resolve(); setTimeout(() => { el.remove(); if (slots.get(slot) === el) slots.delete(slot); }, hold); }
     };
     tick();
   });

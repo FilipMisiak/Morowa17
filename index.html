@@ -16,6 +16,7 @@
     <div id="hud-cams"></div>
     <div id="hud-meters"></div>
     <div id="hud-items"></div>
+    <div id="hud-tools"><button id="t-zout" type="button" aria-label="Oddal">−</button><button id="t-zin" type="button" aria-label="Przybliż">+</button><button id="t-menu" type="button" aria-label="Kasety">☰</button><button id="t-help" type="button" aria-label="Sterowanie">?</button><button id="t-full" type="button" aria-label="Pełny ekran">⛶</button></div>
     <button id="hud-rec-btn" type="button">● WIZJER</button>
     <div id="hud-toast"></div>
     <div id="vf" hidden>
@@ -29,6 +30,8 @@
   <div id="subs"></div>
   <div id="menu" hidden></div>
   <div id="help" hidden></div>
+  <input id="type-field" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-hidden="true" tabindex="-1">
+  <div id="rotate">↻ Obróć telefon poziomo</div>
 
   <div id="start">
     <div class="box">
@@ -38,13 +41,19 @@
       <button id="btn-continue" type="button" hidden>⏵ KONTYNUUJ</button>
       <small>Jesteś Kamerzystą. Nagrywaj sceny przez wizjer, między ujęciami obsługuj dom. Zalecane słuchawki.</small>
       <dl class="legend">
-        <dt>PPM / Spacja (trzymaj)</dt><dd>wizjer: nagrywaj, trzymaj aktorów w kadrze</dd>
+        <dt class="k">PPM / Spacja (trzymaj)</dt><dd class="k">wizjer: nagrywaj, trzymaj aktorów w kadrze</dd>
+        <dt class="t">● WIZJER (przycisk)</dt><dd class="t">włącz / wyłącz nagrywanie; przeciągnij palcem, by celować</dd>
         <dt>Puść wizjer</dt><dd>obsłuż dom: maszyna, właz, piec, pies</dd>
-        <dt>Klik LPM</dt><dd>użyj obiektu / wybranego przedmiotu</dd>
-        <dt>1 – 5</dt><dd>przełączanie kamer</dd>
-        <dt>Kółko myszy</dt><dd>zoom</dd>
-        <dt>M</dt><dd>kasety (wybór odcinka)</dd>
-        <dt>H</dt><dd>ta legenda w trakcie gry</dd>
+        <dt class="k">Klik LPM</dt><dd class="k">użyj obiektu / wybranego przedmiotu</dd>
+        <dt class="t">Dotknij</dt><dd class="t">użyj obiektu / wybranego przedmiotu</dd>
+        <dt class="k">1 – 5</dt><dd class="k">przełączanie kamer</dd>
+        <dt class="t">Przyciski kamer</dt><dd class="t">na dole ekranu</dd>
+        <dt class="k">Kółko myszy</dt><dd class="k">zoom</dd>
+        <dt class="t">− / +</dt><dd class="t">zoom</dd>
+        <dt class="k">M</dt><dd class="k">kasety (wybór odcinka)</dd>
+        <dt class="t">☰</dt><dd class="t">kasety (wybór odcinka)</dd>
+        <dt class="k">H</dt><dd class="k">ta legenda w trakcie gry</dd>
+        <dt class="t">?</dt><dd class="t">ta legenda w trakcie gry</dd>
       </dl>
     </div>
   </div>
