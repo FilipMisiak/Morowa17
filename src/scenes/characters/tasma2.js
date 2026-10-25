@@ -28,4 +28,10 @@ export default [
   garbDef({ id: 'kamizelka', height: 1.72, face: face({ w: 66, h: 76, skin: [168, 146, 122], hair: [30, 26, 22], stubble: 90, jaw: 0.08, seed: 81 }), torso: '#6a3a2c', vest: '#c8d020', pants: '#24262a' }),
   // ep15: balding man in a floral / camo jacket, holds a bundle in the doorway
   garbDef({ id: 'kwiat', height: 1.74, face: face({ w: 62, h: 78, skin: [160, 146, 130], hair: [40, 34, 28], glow: [220, 200, 180], stubble: 70, jaw: 0, seed: 82 }), torso: '#4a5a3a', pocket: '#8a9a70', pants: '#1c1c1e' }),
+  // ep16: man in an orange-brown waffle-knit sweater with a yellow-orange bag on the hip, dark short hair
+  garbDef({ id: 'kratka', height: 1.74, face: face({ w: 62, h: 78, skin: [170, 148, 124], hair: [26, 22, 18], stubble: 70, seed: 83 }), torso: '#a8602c', pocket: '#e0a030', pants: '#6a707a' }),
+  // ep16: stocky man in a felt hat, grey-dark face with black sockets, rusty-orange shirt with a blue badge, big belly
+  garbDef({ id: 'kapelusznik', height: 1.72, face: face({ w: 70, h: 80, skin: [120, 120, 112], hair: [60, 60, 52], glow: [230, 40, 30], stubble: 40, jaw: 0.1, nose: 0.16, seed: 84 }), torso: '#b8662a', pocket: '#3a62c8', pants: '#101012', hat: { kind: 'bucket', color: '#6a6a52' } }),
+  // ep16: bald man in wrap-around sunglasses holding a paper sign, dark high-collar hoodie
+  garbDef({ id: 'lysy', height: 1.76, face: face({ w: 64, h: 78, skin: [150, 112, 84], hair: [150, 112, 84], glow: [6, 6, 6], stubble: 40, seed: 85 }), torso: '#16161a', pants: '#26282a' }),
 ];
