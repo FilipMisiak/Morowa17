@@ -35,8 +35,14 @@ export function createSprite(def) {
   }
   pose.mad = 0; redraw();
 
+  let lying = false;
   return {
     mesh,
+    /** Re-centres the plane on its middle (so rolling it 90° lays it down around the body centre) or back on the feet. */
+    lie(on) {
+      if (on === lying) return;
+      lying = on; geo.translate(0, on ? -h / 2 : h / 2, 0); mesh.position.y = on ? h / 2 : 0;
+    },
     /** Mouth shape for a typed character; it closes by itself shortly after the last one. */
     mouth(viseme, now) { rt.viseme = viseme; rt.mouthUntil = now + 0.16; },
     /** t = stepped clock (s), now = real clock (s), mad = madness 0..1, walking = bool. */

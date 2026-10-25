@@ -97,6 +97,7 @@ async function runStep(s, ctx) {
   if (s.overlap) await Promise.all(s.overlap.map((x) => runStep(x, ctx)));
   if (s.place) ctx.actors.place(s.place.id, s.place.x, s.place.z, s.place.face, s.place.y);
   if (s.walk) ctx.actors.walk(s.walk.id, s.walk.x, s.walk.z, s.walk.secs);
+  if (s.lie) ctx.actors.lie(s.lie.id, s.lie.on ?? true);
   if (s.show) ctx.actors.show(s.show.id, s.show.on ?? true);
   if (s.beat) ctx.recording.start(s.beat);
   if (s.beatEnd) ctx.recording.end(s.beatEnd);
@@ -104,6 +105,7 @@ async function runStep(s, ctx) {
   if (s.duty) ctx.duties.configure(s.duty);
   if (s.sfx) sfx[s.sfx]?.();
   if (s.glitch != null) kick(s.glitch);
+  if (s.tint != null) state.tint = s.tint;
   if (s.madness) addMadness(s.madness);
   if (s.set) Object.assign(state.flags, s.set);
   if (s.waitFor) await bus.once(s.waitFor);

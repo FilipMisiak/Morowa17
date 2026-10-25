@@ -10,6 +10,7 @@ import goscDef from './characters/gosc.js';
 import zoltyDef from './characters/zolty.js';
 import meczennikDef from './characters/meczennik.js';
 import maskaDef from './characters/maska.js';
+import brazowyDef from './characters/brazowy.js';
 
 const LOOK = new THREE.Vector3();
 
@@ -45,6 +46,7 @@ export function buildActors(scene) {
   character(zoltyDef);
   character(meczennikDef);
   character(maskaDef);
+  character(brazowyDef);
   const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
   bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
@@ -78,7 +80,10 @@ export function buildActors(scene) {
       e.group.rotation.y = face;
       e.group.visible = true;
       e.walk = null;
+      e.lie = false; e.sprite?.lie(false);
     },
+    /** Lays the sprite on its side (on a sofa) or stands it up again. */
+    lie(id, on = true) { if (ents[id]) { ents[id].lie = on; ents[id].sprite?.lie(on); } },
     show(id, on = true) { if (ents[id]) ents[id].group.visible = on; },
     walk(id, x, z, secs = 3) {
       const e = ents[id];
@@ -108,6 +113,7 @@ export function buildActors(scene) {
       for (const e of Object.values(ents)) {
         if (e.sprite && e.group.visible) {
           e.sprite.update(t, state.time, state.madness, !!e.walk);
+          e.sprite.mesh.rotation.z = e.lie ? 1.5 : 0;
           if (camera) e.sprite.mesh.rotation.y = Math.atan2(camera.position.x - e.group.position.x, camera.position.z - e.group.position.z) - e.group.rotation.y;
         }
         if (!e.walk) continue;

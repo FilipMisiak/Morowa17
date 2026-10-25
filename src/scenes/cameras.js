@@ -8,6 +8,10 @@ export const CAMERA_NODES = {
   desk:  { label: 'BIURKO',  pos: [-0.4, 1.5, 0.2],  look: [-1.7, 0.95, -1.6], fov: 52 },
   hatch: { label: 'STRYCH',  pos: [0.2, 1.1, 1.2],   look: [0, 2.5, -0.3], fov: 70, dark: true },
   stove: { label: 'PIEC',    pos: [0.3, 1.6, 0.6],   look: [1.8, 0.8, -1.5], fov: 58 },
+  // scripted nodes (no button, no key): shots of the original that only the episode asks for
+  zbliz:  { label: 'ZBLIŻENIE', pos: [1.2, 0.45, -0.1], look: [1.2, 1.65, -1.05], fov: 40, scripted: true },
+  kanapa: { label: 'KANAPA', pos: [-1.0, 1.5, 0.3], look: [0.4, 1.2, 1.55], fov: 58, scripted: true },
+  drzwi:  { label: 'DRZWI', pos: [-0.6, 1.5, -0.8], look: [2.46, 1.25, 1.45], fov: 55, scripted: true },
   window: { label: 'OKNO',  pos: [0.6, 1.5, 0.4],   look: [2.5, 1.4, 0.4], fov: 56 },
 };
 

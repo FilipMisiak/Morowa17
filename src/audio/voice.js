@@ -32,6 +32,7 @@ SPEAKERS.gosc = { ...SPEAKERS.wspollokator, f0: 118, label: 'PAN', tag: '#d8c060
 SPEAKERS.zolty = { ...SPEAKERS.wspollokator, f0: 135, label: 'ŻÓŁTA KURTKA', tag: '#d8c820' };
 SPEAKERS.meczennik = { ...SPEAKERS.gospodarz, f0: 80, label: 'MĘCZENNIK', tag: '#a8c898' };
 SPEAKERS.maska = { ...SPEAKERS.gospodarz, f0: 70, label: 'MASKA', tag: '#b89868' };
+SPEAKERS.brazowy = { ...SPEAKERS.gospodarz, f0: 100, label: 'BRĄZOWA KURTKA', tag: '#a8a050' };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 
 const chains = new Map();

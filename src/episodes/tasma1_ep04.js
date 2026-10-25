@@ -32,7 +32,10 @@ export default {
     { at: 10, line: { text: 'chcecie mnie wykończyć', speaker: 'konon', ...L } },
     { glitch: 0.6 }, { madness: 0.1 },
     { at: 13, line: { text: 'tak jak wojtka wykończyliście', speaker: 'konon', ...L } },
-    { at: 23, line: { text: 'dość mnie tego', speaker: 'konon', ...L } },
+    // [00:00:21] a tall bald man in a dark coat stands in the doorway
+    { at: 21, camera: 'drzwi' }, ...only('major', { x: 2.0, z: 1.1 }),
+    { at: 23, camera: 'door' }, ...only('konon', KONON),
+    { line: { text: 'dość mnie tego', speaker: 'konon', ...L } },
     { at: 26, line: { text: 'cierpienia męczeństwa', speaker: 'konon', pos: { x: 30, y: 50 }, charInterval: 100 } },
     { at: 28, beatEnd: 'rozaniec' },
     { show: { id: 'konon', on: false } },

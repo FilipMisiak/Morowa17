@@ -20,7 +20,7 @@ export const state = {
 /** Fresh level: keeps global time, resets everything the player manages. */
 export function resetLevel() {
   Object.assign(state, {
-    madness: 0, glitch: 0, flags: {}, coverage: 0, strikes: 0, fire: 0.7, selected: null, level: 'running',
+    madness: 0, glitch: 0, tint: 0, flags: {}, coverage: 0, strikes: 0, fire: 0.7, selected: null, level: 'running',
     cam: { raised: false, tape: 1, battery: 1, zoom: 1 }, inventory: {},
   });
 }

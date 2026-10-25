@@ -28,6 +28,7 @@
  *     { caption: { text: '...', pos: 'top' } },                 // on-screen tape text (chatter only)
  *     { say: { text, speaker } },                               // voice-only line
  *     { black: 2000, burn?: true },                              // ms of black screen (burn = cream, burnt tape)
+ *     { tint: 0|1 },                                             // 1 = night-blue grade of the picture
  *     { wait: 1500 },                                           // ms
  *     { overlap: [ {line:{...}}, {line:{...}} ] },              // start several at once on purpose (possessed overlap)
  *     { sfx: 'knock' | 'creak' | 'cut' | 'bowl' | 'silence' },  // see audio/drone.js

@@ -18,8 +18,9 @@ export default {
     { at: 2, caption: { text: 'przyjaciel na zawsze', pos: 'bottom' } },
 
     // [00:00:04–00:00:21] Konon lying on the sofa, close-ups
-    { at: 4, location: 'chata', camera: 'door' },
-    { place: { id: 'konon', x: -0.9, z: -0.6, face: 0 } },
+    { at: 4, location: 'chata', camera: 'kanapa' },
+    { place: { id: 'konon', x: 0.4, z: 1.55, face: 0, y: -0.3 } },
+    { lie: { id: 'konon' } },
     { beat: { id: 'pokoj', actors: ['konon'], need: 6 } },
     { at: 10, line: { text: 'i pojechałeś po mojej rodzinie', speaker: 'konon', pos: 'bottom', ...L } },
     { at: 14, glitch: 0.6 },

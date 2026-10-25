@@ -10,7 +10,7 @@ export function createHud(rig, recording, camcorder) {
   const cams = $('hud-cams');
   const renderCams = () => {
     cams.innerHTML = '';
-    Object.entries(rig.nodes()).forEach(([id, n], i) => {
+    Object.entries(rig.nodes()).filter(([, n]) => !n.scripted).forEach(([id, n], i) => {
       const b = document.createElement('button');
       b.textContent = `${i + 1} ${n.label}`;
       b.className = id === state.cameraId ? 'on' : '';
@@ -22,7 +22,7 @@ export function createHud(rig, recording, camcorder) {
   window.addEventListener('keydown', (e) => {
     if (state.flags.typing) return;
     const n = Number(e.key);
-    const ids = Object.keys(rig.nodes());
+    const ids = Object.entries(rig.nodes()).filter(([, n]) => !n.scripted).map(([id]) => id);
     if (n >= 1 && n <= ids.length && !state.cam.raised) rig.goTo(ids[n - 1]);
   });
   renderCams();

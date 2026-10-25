@@ -11,6 +11,7 @@ uniform vec2  uRes;       // low-res size
 uniform float uTime;      // seconds (stepped by the caller for choppy feel)
 uniform float uMad;       // 0..1 madness
 uniform float uGlitch;    // 0..1 impulse
+uniform float uTint;      // 0 = rotten green, 1 = night blue (ep09 final house)
 varying vec2 vUv;
 
 float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
@@ -55,6 +56,8 @@ void main() {
   vec3 c2 = vec3(0.650, 0.540, 0.310);
   vec3 graded = lum < 0.5 ? mix(c0, c1, lum * 2.0) : mix(c1, c2, (lum - 0.5) * 2.0);
   col = mix(col * vec3(0.95, 1.0, 0.82), graded, 0.72 + 0.2 * mad);
+  float lumT = dot(col, vec3(0.299, 0.587, 0.114));
+  col = mix(col, vec3(0.05, 0.10, 0.28) + vec3(0.10, 0.22, 0.55) * lumT * 1.6, uTint * 0.85);
 
   // tape noise + grain
   float grain = hash(vUv * uRes + fract(uTime) * 91.7) - 0.5;

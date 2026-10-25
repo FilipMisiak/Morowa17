@@ -76,7 +76,9 @@ export default {
     { at: 110, beatEnd: 'sypialnia' }, ...hide('major'),
 
     // [00:01:51–00:02:46] the martyr on the sofa and in the bricks
-    { at: 111, camera: 'door' },
+    // [00:01:49] the broad man in the brown jacket at the table
+    { at: 109, location: 'strych', camera: 'stol' }, place('brazowy', 1.5, 0.3),
+    { at: 111, location: 'chata', camera: 'door' }, ...hide('brazowy'),
     place('meczennik', -0.9, -0.6), place('konon', -0.1, 0.4),
     { beat: { id: 'meczennik', actors: ['meczennik'], need: 6 } },
     { at: 115, line: { text: 'czemu tu siedzisz wojtek', speaker: 'konon', ...L } },
@@ -93,12 +95,12 @@ export default {
     { at: 150, beatEnd: 'meczennik' }, ...hide('meczennik', 'konon'),
 
     // [00:02:32–00:02:46] the house in blue, "zwiastun śmierci"
-    { at: 152, location: 'podworko', camera: 'front' },
+    { at: 152, location: 'podworko', camera: 'front' }, { tint: 1 },
     { at: 153, line: { text: 'nie chce odejść', speaker: 'konon', ...L } },
     { at: 156, line: { text: 'stoi i patrzy', speaker: 'konon', ...L } },
     { at: 160, location: 'piwnica', camera: 'twarz' }, place('konon', 0.0, -1.0),
     { line: { text: 'zwiastun śmierci', speaker: 'konon', pos: 'bottom', color: '#e8dca0', charInterval: 100 } },
     { glitch: 1 }, { madness: 0.15 },
-    { at: 163, black: 1500 },
+    { at: 163, black: 1500 }, { tint: 0 },
   ],
 };

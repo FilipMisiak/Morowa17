@@ -13,6 +13,10 @@ export default {
   items: { kaseta: 1, bateria: 1, wegiel: 2, klodka: 1, przysmak: 1 },
   duties: { stove: { decay: 0.014 } },
   steps: [
+    // [00:00:00] the house from outside, a beat before the kitchen
+    { location: 'podworko', camera: 'front' },
+    { wait: 1800 },
+    { location: 'chata', camera: 'door' },
     { place: { id: 'major', x: 1.2, z: -1.05, face: 0 } },
     { place: { id: 'konon', x: 0.1, z: 0.9, face: 0 } },
     { caption: { text: 'TAŚMA 1 · ODC. 01', pos: 'top' } },
@@ -50,6 +54,17 @@ export default {
     { show: { id: 'shade', on: false } },
     { wait: 5000 },
     { beatEnd: 'strych' },
+
+    // [00:00:33–00:00:40] Major eating in profile, then the extreme close-up from below with a hand at the mouth
+    { camera: 'stove' },
+    { beat: { id: 'jedzenie', actors: ['major'], need: 3 } },
+    { wait: 3500 },
+    { beatEnd: 'jedzenie' },
+    { camera: 'zbliz' },
+    { beat: { id: 'zblizenie', actors: ['major'], need: 3 } },
+    { wait: 3500 },
+    { beatEnd: 'zblizenie' },
+    { camera: 'door' },
     { wait: 12000 }, // time left on the tape to answer the hatch / write the letter
   ],
 };

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { state } from '../core/state.js';
 import { LOW_W, LOW_H } from './psx.js';
 import { vhsVertex, vhsFragment } from './vhs.js';
 
@@ -30,6 +31,7 @@ export function createPipeline(canvas) {
       uTime: { value: 0 },
       uMad: { value: 0 },
       uGlitch: { value: 0 },
+      uTint: { value: 0 },
     },
     depthTest: false,
     depthWrite: false,
@@ -66,6 +68,7 @@ export function createPipeline(canvas) {
       material.uniforms.uTime.value = time;
       material.uniforms.uMad.value = madness;
       material.uniforms.uGlitch.value = glitch;
+      material.uniforms.uTint.value = state.tint ?? 0;
       renderer.render(quadScene, quadCam);
     },
   };
