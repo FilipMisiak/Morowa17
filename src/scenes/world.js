@@ -8,6 +8,7 @@ import { bus } from '../core/bus.js';
 const loaders = {
   las: async () => (await import('./locations/las.js')).buildLas(),
   podworko: async () => (await import('./locations/podworko.js')).buildPodworko(),
+  piwnica: async () => (await import('./locations/piwnica.js')).buildPiwnica(),
   strych: async () => (await import('./locations/strych.js')).buildStrych(),
   lazienka: async () => (await import('./locations/lazienka.js')).buildLazienka(),
 };
