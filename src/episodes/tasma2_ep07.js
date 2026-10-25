@@ -1,4 +1,4 @@
-// Level 17 — "Poeta", built from lore/ep17.md (00:00:00–00:02:06). Dialogue is verbatim; `at` = second of the original episode.
+// Level 17 — "Poeta" (00:00:00–00:02:06). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the poet (`poeta`) reads the poem and says goodbye ("Liczę, że mi wybaczysz", "Bywaj druhu"); "piękny dom" and "jesteś czym pan" are OCR-only lines (no frame) given to the yellow-eyed face.
 // The poem is read from frame 00:28 (top left, italic): two full lines and the cut "A k" — the OCR reading "A kamrat p(" is not confirmed, so only "A k" is shown. "niczym nie wzruszy" corrects an OCR join.
 // Not reproduced: the unreadable yellow writing on the forehead (00:35) and the sign "CURN…". The post-poem montage has no captions; the burning man on the stairs is shown only as a glitch + orange flash.
@@ -10,7 +10,6 @@ export default {
   id: 'tasma2_ep07',
   tape: 2, index: 7, youtubeIndex: 17,
   title: 'Poeta',
-  loreFile: 'lore/ep17.md',
   status: 'wip',
   location: 'festyn',
   startCamera: 'domek',

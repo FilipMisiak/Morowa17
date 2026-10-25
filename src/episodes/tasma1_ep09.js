@@ -1,4 +1,4 @@
-// Level 9 — built from lore/ep09.md (00:00:00–00:02:46). Dialogue is verbatim; `at` = second of the original episode.
+// Level 9 — (00:00:00–00:02:46). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: Major cooks and calls Konon "krzysztofie"; Konon thanks him; Wojtek (Major) lies in the bedroom;
 // the masked "męczennik" sits on the sofa and shows up as a face in the bricks.
 // Frame/OCR choices: "jaki męczennik" follows the frame (OCR had "męczennik jaki"); "0 toluen" is kept as the OCR has it [?];
@@ -12,7 +12,6 @@ export default {
   id: 'tasma1_ep09',
   tape: 1, index: 9, youtubeIndex: 9,
   title: 'Morowa 17 (ep09)',
-  loreFile: 'lore/ep09.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

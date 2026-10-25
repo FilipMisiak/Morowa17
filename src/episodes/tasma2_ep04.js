@@ -1,4 +1,4 @@
-// Level 14 — "Urodziny" (working title), built from lore/ep14.md (00:00:00–00:01:40). Dialogue is verbatim; `at` = second of the original episode.
+// Level 14 — "Urodziny" (working title) (00:00:00–00:01:40). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the man in the yellow-cream jacket (`zolty`) hosts the party and says "urodziny są jego"; Konon asks to wake Wojtek; Wojtek (= Major) lies on the sofa with a green bottle.
 // OCR captions run 3–4 s ahead of the frames in the lore ("nie tutaj", "sam musze", "wypij wojtek"): the times below are the frame times. "7 urodziny", "ciągle spi", "lepi" stay without diacritics [?].
 // "urodziny są jego" is read from frame 01:02 (not in the OCR). The pale face of 00:13–00:20 is `chudy`; the red-eyed face of 01:09 and 01:34 is `czerwonooki`.
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep04',
   tape: 2, index: 4, youtubeIndex: 14,
   title: 'Urodziny',
-  loreFile: 'lore/ep14.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

@@ -1,4 +1,4 @@
-// Level 1 — built from lore/ep01.md (00:00:00–00:00:40). Dialogue is verbatim.
+// Level 1 — (00:00:00–00:00:40). Dialogue is verbatim.
 // Speakers follow the frames: Konon (green sweater) asks about the smell at the stove; Major (curly hair, red eyes) is the cook
 // and says "strych został otwarty" (caption bottom-left). Attribution is still a working guess [?].
 const bottom = { pos: 'bottom', charInterval: 100 };
@@ -6,7 +6,6 @@ export default {
   id: 'tasma1_ep01',
   tape: 1, index: 1, youtubeIndex: 1,
   title: 'Morowa 17 (ep01)',
-  loreFile: 'lore/ep01.md',
   status: 'wip',
   startCamera: 'door',
   letter: 'strych został otwarty',

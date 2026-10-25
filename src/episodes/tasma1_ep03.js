@@ -1,4 +1,4 @@
-// Level 3 — built from lore/ep03.md (00:00:00–00:01:48). Dialogue is verbatim; `at` = second of the original episode.
+// Level 3 — (00:00:00–00:01:48). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: Konon (green sweater, white pupils) speaks to "wojtek"; Major (pale, red eyes in the end) answers.
 // OCR fixes after the frames: "co obserwujesz" (frame shows lower-case), "moją odleżyne" (OCR had the words swapped),
 // "ktoś tam był? co?" (leading "1" is OCR junk) and the closing line "strych sie obudził", which the OCR missed (frame 00-01-46).
@@ -9,7 +9,6 @@ export default {
   id: 'tasma1_ep03',
   tape: 1, index: 3, youtubeIndex: 3,
   title: 'Morowa 17 (ep03)',
-  loreFile: 'lore/ep03.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

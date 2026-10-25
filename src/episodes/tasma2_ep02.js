@@ -1,4 +1,4 @@
-// Level 12 — built from lore/ep12.md (00:00:00–00:03:14). Dialogue is verbatim; `at` = second of the original episode.
+// Level 12 — (00:00:00–00:03:14). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: Konon says the lines that name "wojtek" (Major, the man in the cap with the torch); Major answers about the solvent and the wiring.
 // OCR digits left as in the lore (no frame to check): "zapomniałem 0 jej", "1 po problemie", "1 majster zrobi prąd", "ja nie 0 tym", "a 0 czym", "0 znów działa".
 // Left out: "41 'córka'" (OCR junk, no frame) — only "córka" is shown. "nie zamknąłeś górnej urny" follows the frame (OCR order was scrambled).
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep02',
   tape: 2, index: 2, youtubeIndex: 12,
   title: 'Morowa 17 (ep12)',
-  loreFile: 'lore/ep12.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

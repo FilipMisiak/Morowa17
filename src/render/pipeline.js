@@ -38,18 +38,33 @@ export function createPipeline(canvas) {
   });
   quadScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
 
-  const view = { x: 0, y: 0, w: 1, h: 1, W: 1, H: 1 };
+  // Quality tiers (auto-lowered by main.js when fps sags): cap on the canvas backing-store width, shadows on/off.
+  const TIERS = [{ maxW: 1280, shadows: true }, { maxW: 800, shadows: false }, { maxW: 560, shadows: false }];
+  let tier = 0;
+  const dimmed = new WeakSet(); // scenes whose shadow-casting lights were already switched off
+
+  // `view` is in CSS pixels (pointer maths and viewport); `k` scales the backing store.
+  const view = { x: 0, y: 0, w: 1, h: 1, W: 1, H: 1, k: 1 };
   function resize() {
     const W = window.innerWidth, H = window.innerHeight;
-    renderer.setSize(W, H, false);
     const w = Math.min(W, (H * 4) / 3), h = w * 3 / 4;
-    Object.assign(view, { x: (W - w) / 2, y: (H - h) / 2, w, h, W, H });
+    const k = Math.min(1, TIERS[tier].maxW / w); // backing pixels per CSS pixel
+    renderer.setPixelRatio(k); // viewport/scissor stay in CSS px, the backing store shrinks
+    renderer.setSize(W, H, false);
+    Object.assign(view, { x: (W - w) / 2, y: (H - h) / 2, w, h, W, H, k });
   }
   window.addEventListener('resize', resize);
   resize();
 
   return {
     renderer,
+    get tier() { return tier; },
+    /** Lowers (or sets) the quality tier; returns false when already at the lowest. */
+    setTier(t) {
+      t = Math.min(TIERS.length - 1, Math.max(0, t));
+      if (t === tier) return false;
+      tier = t; resize(); return true;
+    },
     /** Convert a pointer event to NDC inside the letterboxed picture (null when on the black bars). */
     pointerToNDC(e) {
       const px = (e.clientX - view.x) / view.w, py = (e.clientY - view.y) / view.h;
@@ -58,6 +73,10 @@ export function createPipeline(canvas) {
     },
     /** `time` is the (possibly stepped) shader clock. */
     render(scene, camera, { time, madness, glitch }) {
+      if (!TIERS[tier].shadows && !dimmed.has(scene)) {
+        dimmed.add(scene);
+        scene.traverse((o) => { if (o.isLight && o.castShadow) o.castShadow = false; });
+      }
       renderer.setRenderTarget(target);
       renderer.render(scene, camera);
       renderer.setRenderTarget(null);

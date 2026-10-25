@@ -1,4 +1,4 @@
-// Level 10 — finale of tape 1, built from lore/ep10.md (00:00:00–00:04:44). Dialogue is verbatim; `at` = second of the original episode.
+// Level 10 — finale of tape 1 (00:00:00–00:04:44). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the martyr in the bricks, Major on the sofa, the dog-mask visitor (`maska`) who calls him "morderco", Konon at the window.
 // Frame choices: the four-line prophecy follows frame 02-34; "oby tylko strych..." and "co tam sie do kurrrwy wyprawia" come from frames (the OCR missed the latter).
 // Left out as unconfirmed OCR: the long prophecy variants of 02:19–02:41, the poster "2016", the dog's noises. "Milc" is completed to "Milcz morderco" (OCR 02:16).
@@ -13,7 +13,6 @@ export default {
   id: 'tasma1_ep10',
   tape: 1, index: 10, youtubeIndex: 10,
   title: 'Finał taśmy 1',
-  loreFile: 'lore/ep10.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

@@ -1,4 +1,4 @@
-// Level 5 — built from lore/ep05.md (00:00:00–00:01:38). Dialogue is verbatim; `at` = second of the original episode.
+// Level 5 — (00:00:00–00:01:38). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: Major cooks the bigos and talks to "wojtek"/"krzysio"; Konon goes down to the cellar.
 // OCR fixes after the frames: "o jutro przyjeżdża" (OCR `0 jutro przyjezdża`). Lines without a frame stay as the OCR has them.
 const L = { pos: 'bottom', charInterval: 100 };
@@ -9,7 +9,6 @@ export default {
   id: 'tasma1_ep05',
   tape: 1, index: 5, youtubeIndex: 5,
   title: 'Morowa 17 (ep05)',
-  loreFile: 'lore/ep05.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

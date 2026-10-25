@@ -1,4 +1,4 @@
-// Level 6 — built from lore/ep06.md (00:00:00–00:01:51). Dialogue is verbatim; `at` = second of the original episode.
+// Level 6 — (00:00:00–00:01:51). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the host in the plaid jersey = Konon, the grinning guest ("pan") = `gosc`. The lore marks all of them [?].
 // OCR fixes after the frames: "poczęstuje pana nalewką" (OCR had the words shuffled), "teraz pan jesteś mój" (same), "i napijemy sie" (frame only).
 // Cut-off OCR fragments are used only where a clean word is left: "pomóż pan" (from "...ałeś to pomóż pan przyjech"), "wypędzisz duchy? pan" (from "ypędzisz duchy? pan").
@@ -11,7 +11,6 @@ export default {
   id: 'tasma1_ep06',
   tape: 1, index: 6, youtubeIndex: 6,
   title: 'Morowa 17 (ep06)',
-  loreFile: 'lore/ep06.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

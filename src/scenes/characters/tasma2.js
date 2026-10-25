@@ -1,6 +1,6 @@
 import { garbDef } from './garb.js';
 
-/** Minor characters of tape 2, drawn from the frames in lore/ep11–ep20 (see each lore file's "Wygląd"). Add new ones at the end. */
+/** Minor characters of tape 2. Add new ones at the end. */
 const face = (o) => ({ w: 62, h: 78, skin: [168, 160, 130], hair: [20, 18, 14], glow: [220, 200, 80], teeth: [218, 208, 172], nose: 0.12, jaw: 0, brow: 6, stubble: 60, curly: false, part: false, seed: 70, ...o });
 
 export default [

@@ -1,4 +1,4 @@
-// Level 19 — "prośba i kara", built from lore/ep19.md (00:00:00–00:02:16). Dialogue is verbatim; `at` = second of the original episode.
+// Level 19 — "prośba i kara" (00:00:00–00:02:16). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the heavy man ("grubas" = Konon) sits at the pot in the tiled kitchen; "to ja major" and the red-jacket man at the monitor are Major; the rest of the lines are given to whoever is in frame.
 // OCR-only lines (no frame, positions unknown → bottom): "jarek?", "to ja major", "był żeby", "nie zdążyłem", "grubas już go zabrał", "tylko gdzie", "mexykański", "0 scybulko", "aż pociekli łzy", "niesamowite paskudztwo", "krzysztofie", "wyśmienity smalec", "dziękuje tobie", "deserek", "kurcze fu", "ze skórką", "obmyć trzeba" — spellings as in the OCR ("dziękuje", "0 scybulko" [?]).
 // Frame-confirmed: "znowu uciekłeś" (centre), "gulasz będzie" (bottom), "smalec z menela" / "starosielski rarytas" (right side; OCR had "menelz"), "jeżeli boga nie ma" (OCR word order was wrong) / "to wszystko jest dozwolone" (centre-low).
@@ -11,7 +11,6 @@ export default {
   id: 'tasma2_ep09',
   tape: 2, index: 9, youtubeIndex: 19,
   title: 'prośba i kara',
-  loreFile: 'lore/ep19.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

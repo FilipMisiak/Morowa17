@@ -1,6 +1,6 @@
-// Level 20 — finale of the series, built from lore/ep20.md (00:00:00–00:03:51). Dialogue is verbatim; `at` = second of the original episode.
+// Level 20 — finale of the series (00:00:00–00:03:51). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: man A (`kardigan`, red cardigan, tiger sofa) eats and says "patrz jak jem", "o co ci chodzi", "ja normalnie sie zachowuje"; man B (`kogut`, rooster bib, by the window) says "krzysiek", "na mnie patrz", "dlaczego tak robisz ty"; "no jareczku" and "dziś obiadek z mamą" go to the figure in the doorway.
-// OCR-only lines (no frame): "dziękuję tobie", "mi daje )", "hej na na na", "no jareczku", "dziś obiadek z mamą", "dobry; Zły i brzydki" (OCR punctuation kept, the leading quote mark is dropped as junk), "mmmmm", "delicje", "cóż za kunszt kulinarny", "krzysiek", "na mnie patrz", "dlaczego tak robisz ty" / "dlaczego tak wyrabiasz ty", "normalnie wyglądam" (the last two from lore_raw).
+// OCR-only lines (no frame): "dziękuję tobie", "mi daje )", "hej na na na", "no jareczku", "dziś obiadek z mamą", "dobry; Zły i brzydki" (OCR punctuation kept, the leading quote mark is dropped as junk), "mmmmm", "delicje", "cóż za kunszt kulinarny", "krzysiek", "na mnie patrz", "dlaczego tak robisz ty" / "dlaczego tak wyrabiasz ty", "normalnie wyglądam" (the last two from the transcript).
 // Frame-confirmed: "teraz wszystkim ciepło" (bottom, yellow), "o co ci chodzi" (right, light), "ja normalnie sie zachowuje" (bottom, yellow). "O patrz jak jem" has the capital O as the OCR [?]. Not reproduced: the "TYSKIE" banner, the purple glowing object, the missing frames 03:23 / 03:36. The series ends on black — no end caption.
 const L = { pos: 'bottom', charInterval: 100 };
 const YELLOW = { pos: 'bottom', color: '#e8d870', charInterval: 100 };
@@ -10,7 +10,6 @@ export default {
   id: 'tasma2_ep10',
   tape: 2, index: 10, youtubeIndex: 20,
   title: 'Morowa 17 (ep20)',
-  loreFile: 'lore/ep20.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

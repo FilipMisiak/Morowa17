@@ -4,7 +4,7 @@ import { mumble } from './formant.js';
 import { state } from '../core/state.js';
 
 /**
- * VOICE DESIGN (read docs/AUDIO_DESIGN.md)
+ * VOICE DESIGN
  *
  * IMPORTANT browser limit: window.speechSynthesis plays straight to the OS audio output. It cannot be routed into
  * the Web Audio graph, so filters/distortion CANNOT be applied to it. Therefore every line is built from layers

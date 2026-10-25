@@ -17,13 +17,15 @@ import { initRituals } from './systems/rituals.js';
 import { audio } from './audio/engine.js';
 import { startDrone, updateDrone } from './audio/drone.js';
 import { createHud } from './ui/hud.js';
-import { createMenu } from './ui/menu.js';
+import { createMenu, resumeId } from './ui/menu.js';
+import { save } from './core/save.js';
 import { loadEpisode, runEpisode, cancelRun } from './episodes/runner.js';
 
 const params = new URLSearchParams(location.search);
 const canvas = document.getElementById('screen');
 
 const pipeline = createPipeline(canvas);
+if (params.has('tier')) pipeline.setTier(Number(params.get('tier'))); // force a quality tier (0 best … 2 lowest)
 const cabin = buildCabin();
 const rig = createCameraRig();
 const actors = buildActors(cabin.scene);
@@ -49,6 +51,7 @@ rig.goTo('door');
 let currentId = null;
 async function play(id) {
   currentId = id;
+  if (id !== 'tasma0_prolog') save.visit(id);
   result.hide();
   const ep = await loadEpisode(id);
   console.info('[episode]', ep.id, ep.status);
@@ -60,7 +63,10 @@ const result = createResult({ onRetry: () => play(currentId), onNext: () => next
 const menu = createMenu(play);
 
 // level verdicts: footage judged at the end of the steps, or the tape is lost mid-level (3 strikes / madness 1)
-bus.on('level:end', (v) => { nextId = v.next; result.show(v); });
+bus.on('level:end', (v) => {
+  if (v.won) save.complete(currentId, state.coverage);
+  nextId = v.next; result.show(v);
+});
 bus.on('level:lost', (reason) => {
   if (state.level !== 'running') return;
   state.level = 'lost'; cancelRun(); result.show({ won: false, reason, next: null });
@@ -70,10 +76,15 @@ bus.on('level:lost', (reason) => {
 let last = performance.now();
 let started = false;
 let fpsNow = 0;
+let slowFor = 0; // seconds spent below the fps floor → drop one quality tier
 function frame(now) {
   const dt = Math.min(0.1, (now - last) / 1000);
   fpsNow += (1 / Math.max(dt, 1e-3) - fpsNow) * 0.1;
   last = now;
+  if (started && !document.hidden) {
+    slowFor = fpsNow < 24 ? slowFor + dt : 0;
+    if (slowFor > 4 && pipeline.setTier(pipeline.tier + 1)) { slowFor = 0; console.info('[perf] quality tier', pipeline.tier); }
+  } else slowFor = 0;
   state.time += dt;
   if (started) state.tapeSeconds += dt;
   state.glitch = Math.max(0, state.glitch - dt * 2.5);
@@ -96,14 +107,30 @@ function frame(now) {
 requestAnimationFrame(frame);
 
 // ---- start (user gesture: audio + speech need it) ---------------------------------------------
-document.getElementById('btn-start').addEventListener('click', async () => {
+const begin = async (id) => {
   await audio.init();
   startDrone();
   document.getElementById('start').remove();
   hud.show();
   started = true;
-  play(params.get('ep') || 'tasma0_prolog');
+  play(params.get('ep') || id);
+};
+document.getElementById('btn-start').addEventListener('click', () => begin('tasma0_prolog'));
+const btnContinue = document.getElementById('btn-continue');
+if (save.hasProgress()) {
+  btnContinue.hidden = false;
+  btnContinue.addEventListener('click', () => begin(resumeId()));
+}
+
+// H: controls legend (same markup as on the start screen)
+const help = document.getElementById('help');
+help.innerHTML = document.querySelector('#start .legend').outerHTML;
+window.addEventListener('keydown', (e) => {
+  if (state.flags.typing || document.getElementById('start')) return;
+  if (e.key.toLowerCase() === 'h') help.hidden = !help.hidden;
+  else if (e.key === 'Escape') help.hidden = true;
 });
+help.addEventListener('click', () => { help.hidden = true; });
 
 // ---- dev keys ---------------------------------------------------------------------------------
 window.addEventListener('keydown', (e) => {
@@ -120,6 +147,7 @@ if (params.has('debug')) {
       return {
         started,
         fps: Math.round(fpsNow),
+        tier: pipeline.tier,
         currentCamera: state.cameraId,
         sanityLevel: state.madness,
         activeEpisode: state.episodeId,

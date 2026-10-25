@@ -6,7 +6,7 @@ import * as P from './props.js';
 import { CAMERA_NODES } from './cameras.js';
 
 /**
- * The house: one room with recognisable props (see lore/*.md "Wygląd"): olive plaster with a green dado, iron stove in a
+ * The house: one room with recognisable props: olive plaster with a green dado, iron stove in a
  * brick niche, table with a flower cloth, sofa with a zebra blanket, desk with a typewriter, shelves with jars, pictures,
  * a crucifix, a clock, window with curtains and a door with panes.
  * Room: x -2.5..2.5, z -2..2, height 2.6. Hotspots are invisible boxes (outlined in the picture) with userData.hotspot.

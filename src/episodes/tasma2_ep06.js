@@ -1,4 +1,4 @@
-// Level 16 — "domek strachów", built from lore/ep16.md (00:00:00–00:02:40). Dialogue is verbatim; `at` = second of the original episode.
+// Level 16 — "domek strachów" (00:00:00–00:02:40). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the man in the sweater with the bag (`kratka`) says "ja pomogłem"; the bald man with the sign (`lysy`) asks "zadowolony mexykanie?" and says "magia"; the hat man (`kapelusznik`) leads the way and says "nie ma ratunku"; the yellow-eyed face (`zoltooki`) says "ja sie nie boje sie". Konon stands at the door at 00:02:25.
 // OCR-only lines (no frame): "a mógł słuchać", "nie zrobiłeś nic złego", "będzie cieplej", "zjeść trzeba", "krew z uszkami", "za drogo", "Za mną prędko", "do strasznego domu", "piękny dom", "jesteś czym pan" (kept as the OCR has it).
 // "domy nie są tym" / "czym się wydają" are read from frames 01:53–01:57 (not in the OCR). The sign's Cyrillic text is read from frame 00:55.
@@ -10,7 +10,6 @@ export default {
   id: 'tasma2_ep06',
   tape: 2, index: 6, youtubeIndex: 16,
   title: 'domek strachów',
-  loreFile: 'lore/ep16.md',
   status: 'wip',
   location: 'lazienka',
   startCamera: 'twarz',

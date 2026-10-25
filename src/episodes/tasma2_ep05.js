@@ -1,4 +1,4 @@
-// Level 15 — built from lore/ep15.md (00:00:00–00:02:30). Dialogue is verbatim; `at` = second of the original episode.
+// Level 15 — (00:00:00–00:02:30). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the man in the hi-vis vest (`kamizelka`) reads the letter "od mexykana"; the man in the doorway with the bundle (`kwiat`) says he is leaving and what to guard; the plaid man with yellow eyes is `zoltooki`.
 // None of the OCR-only lines was visible on a frame (position unknown): all are shown at the bottom. Cut words "gro", "obie", "całeś" and "[kolor?] ciałem" are kept as the OCR has them [?].
 // "prośba" follows frame 00:48 (a title card at the bottom, in quotation marks in the OCR). The letter text itself is unreadable on every frame — the game's own letter is the 12 caption steps.
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep05',
   tape: 2, index: 5, youtubeIndex: 15,
   title: 'Morowa 17 (ep15)',
-  loreFile: 'lore/ep15.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

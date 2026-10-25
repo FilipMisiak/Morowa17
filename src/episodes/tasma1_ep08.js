@@ -1,4 +1,4 @@
-// Level 8 — built from lore/ep08.md (00:00:00–00:02:40). Dialogue is verbatim; `at` = second of the original episode.
+// Level 8 — (00:00:00–00:02:40). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: Konon and Major talk, the man in the yellow jacket at the door is `zolty`; most subtitles were not on sampled frames.
 // OCR/frame fixes: "strych" at 00:35 (the frame shows it, OCR had "żyje"), "odleżyne widziałem" and "spierdoliła" (frames). Kept as in the lore [?]:
 // "dó domku", "kłodko", "gratuluje panulza to", "sie nadajeci"; "aw drugiej" is written "w drugiej" (leading `a` looks like OCR junk).
@@ -10,7 +10,6 @@ export default {
   id: 'tasma1_ep08',
   tape: 1, index: 8, youtubeIndex: 8,
   title: 'Morowa 17 (ep08)',
-  loreFile: 'lore/ep08.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

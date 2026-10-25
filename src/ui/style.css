@@ -76,3 +76,23 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; color:
 #blackout { position: fixed; inset: 0; z-index: 4; background: #000; opacity: 0; pointer-events: none; transition: opacity .08s; }
 #blackout.on { opacity: 1; }
 #blackout.burn { background: #e8dcb0; }
+
+/* controls legend (start screen + H overlay) */
+.legend { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1.2rem; text-align: left; margin: 1.4rem auto 0;
+  max-width: 34rem; font-size: .85rem; opacity: .75; }
+.legend dt { color: var(--beige); white-space: nowrap; } .legend dd { margin: 0; opacity: .8; }
+#start #btn-continue { margin-right: .8rem; }
+#help { position: fixed; inset: 0; z-index: 14; display: grid; place-items: center; background: rgba(0,0,0,.8); }
+#help[hidden] { display: none; }
+#help .legend { opacity: 1; font-size: 1rem; }
+
+/* tape shelf */
+#menu h3 { font-weight: normal; letter-spacing: .2em; opacity: .7; margin: 1.6rem 0 .5rem; }
+#menu .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.2rem, 1fr)); gap: .5rem; }
+#menu .shelf button { display: block; width: auto; text-align: center; border: 1px solid rgba(216,201,163,.35); padding: .6rem .2rem; }
+#menu .shelf button b { display: block; font-size: 1.2em; font-weight: normal; }
+#menu .shelf button small { opacity: .7; }
+#menu .shelf button.done { border-color: var(--rot); }
+#menu .shelf button.locked { opacity: .3; cursor: default; }
+#menu .foot { margin-top: 2rem; display: flex; gap: 1.5rem; }
+#menu button.plain { display: inline-block; width: auto; border: 0; opacity: .6; padding: .3rem 0; }

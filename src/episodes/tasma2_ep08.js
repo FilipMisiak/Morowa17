@@ -1,4 +1,4 @@
-// Level 18 — "chata czarna", built from lore/ep18.md (00:00:00–00:02:43). Dialogue is verbatim; `at` = second of the original episode.
+// Level 18 — "chata czarna" (00:00:00–00:02:43). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the plaid man (heavy, bald-ish) is Konon; the hooded `czerwonooki` says "i zazwyczaj" / "kawka tego tu"; the uniform man (`mundur`) says "nie w ten sposób"; the fair man in the T-shirt (`blondyn`) says "trzeba zaglądać"; Konon in the patterned sweater says "wracajmy wojtek" / "w domku być najlepiej" in the forest.
 // "nie w ten sposób", "i zazwyczaj" (OCR had "zazwyczaj") and "trzeba zaglądać" are read from frames. Not reproduced: the mirrored "…RZĄDEK" poster in the plaid-table room, the logo "C" on the parcel, the laptop's "ASINOT?".
 const L = { pos: 'bottom', charInterval: 100 };
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep08',
   tape: 2, index: 8, youtubeIndex: 18,
   title: 'chata czarna',
-  loreFile: 'lore/ep18.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

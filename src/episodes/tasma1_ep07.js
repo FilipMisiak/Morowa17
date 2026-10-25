@@ -1,4 +1,4 @@
-// Level 7 — built from lore/ep07.md (00:00:00–00:01:17). Dialogue is verbatim; `at` = second of the original episode.
+// Level 7 — (00:00:00–00:01:17). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the man searching the yard and the yellow-eyed face are both Konon (he asks for wojtek).
 // OCR fixes: "o cieplej już" (OCR `0`, same junk as in ep04/ep05). "odlezyna" is kept as the OCR has it [?]. Most subtitles are not visible
 // on the sampled frames (lore marks them), so their timing follows the OCR.
@@ -8,7 +8,6 @@ export default {
   id: 'tasma1_ep07',
   tape: 1, index: 7, youtubeIndex: 7,
   title: 'Morowa 17 (ep07)',
-  loreFile: 'lore/ep07.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

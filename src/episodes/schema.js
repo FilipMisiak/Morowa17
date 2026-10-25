@@ -2,12 +2,11 @@
  * EPISODE MODULE CONTRACT (one file per episode in src/episodes/, e.g. tasma1_ep01.js)
  *
  * export default {
- *   id: 'tasma1_ep01',          // = file name; tape N, episode NN as in reference/ and lore_raw.md
+ *   id: 'tasma1_ep01',          // = file name; tape N, episode NN
  *   tape: 1,                    // 1 = Wiosna (ep 1-10), 2 = Lato (ep 11-20)
  *   index: 1,                   // position inside the tape (1..10)
  *   youtubeIndex: 1,            // position in the YouTube playlist (1..20)
- *   title: '...',               // title from lore_raw.md
- *   loreFile: 'lore/ep01.md',   // your scene analysis for this episode
+ *   title: '...',               // title of the original episode
  *   status: 'stub' | 'wip' | 'done',
  *   sandbox: false,             // true = no verdict at the end (prologue)
  *   startCamera: 'door',        // camera node the level opens on
@@ -48,6 +47,6 @@
  * };
  *
  * Won when coverage >= 99.5% at the end of the steps; lost on 3 strikes, madness 1.0 or missing footage.
- * Use the real timestamps from lore_raw.md for ordering and pacing, and keep dialogue VERBATIM.
+ * Use the real timestamps of the original episode for ordering and pacing, and keep dialogue VERBATIM.
  */
 export {};

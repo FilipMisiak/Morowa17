@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { mulberry32 } from '../core/rng.js';
 
-/** Canvas 2D textures for the recognisable props of the house (see lore/*.md "Wygląd"). Small, nearest-neighbour. */
+/** Canvas 2D textures for the recognisable props of the house. Small, nearest-neighbour. */
 function tex(w, h, draw, repeat = [1, 1]) {
   const c = document.createElement('canvas'); c.width = w; c.height = h;
   const ctx = c.getContext('2d');

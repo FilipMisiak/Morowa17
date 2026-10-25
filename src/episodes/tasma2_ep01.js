@@ -1,4 +1,4 @@
-// Level 11 — opening of tape 2, built from lore/ep11.md (00:00:00–00:02:15). Dialogue is verbatim; `at` = second of the original episode.
+// Level 11 — opening of tape 2 (00:00:00–00:02:15). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the lore has no "krzysiu"/"wojtek" here, so the lines go to the men seen in the frames (cap, bucket hat, lime hoodie, grey jacket).
 // OCR-only lines (no frame): "dziś święto", "trzeba świętować", "trzeba sie ubrać elegancko", "i to wezme", "będzie na łbie twoim", "flaczki zostały", "kiszka będzie", "flaczki smaczne", "mexykano też dostał", "mogli nie przychodzić".
 // Kept as OCR [?]: "gril" (position unknown), the unreadable line at 01:29 is left out. "i ogułem o" follows the frame (OCR had "0").
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep01',
   tape: 2, index: 1, youtubeIndex: 11,
   title: 'Taśma 2',
-  loreFile: 'lore/ep11.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

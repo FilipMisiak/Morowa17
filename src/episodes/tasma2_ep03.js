@@ -1,6 +1,6 @@
-// Level 13 — built from lore/ep13.md (00:00:00–00:02:30). Dialogue is verbatim; `at` = second of the original episode.
+// Level 13 — (00:00:00–00:02:30). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the masked red-eyed one (`czerwonooki`) demands food and calls Konon "krzysiu"; the plaid-sleeve man who asks "dlaczego ty sie nie podzielisz" is Konon; the bench pair is `rudy` (cap) and `okularnik` (shades).
-// The two mirrored lines of 00:06 / 00:08 are OCR-only [?]: the OCR gave them reversed, here they are reversed back (exact letter reversal). "o kabab" and "wyjme" follow lore_raw (no frame for "wyjme").
+// The two mirrored lines of 00:06 / 00:08 are OCR-only [?]: the OCR gave them reversed, here they are reversed back (exact letter reversal). "o kabab" and "wyjme" follow the transcript (no frame for "wyjme").
 const L = { pos: 'bottom', charInterval: 100 };
 const place = (id, x, z) => ({ place: { id, x, z, face: 0 } });
 const hide = (...ids) => ids.map((id) => ({ show: { id, on: false } }));
@@ -9,7 +9,6 @@ export default {
   id: 'tasma2_ep03',
   tape: 2, index: 3, youtubeIndex: 13,
   title: 'Morowa 17 (ep13)',
-  loreFile: 'lore/ep13.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

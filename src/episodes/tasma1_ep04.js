@@ -1,4 +1,4 @@
-// Level 4 — built from lore/ep04.md (00:00:00–00:01:36). Dialogue is verbatim; `at` = second of the original episode.
+// Level 4 — (00:00:00–00:01:36). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the ghost with the rosary and the man with the milk are Konon; the "zombie" and the red-eyed one are Major.
 // OCR fixes after the frames: "znów uciekłeś" (OCR `Iznów`), "o majorku" (OCR `0`), "tak jak wojtka wykończyliście" (OCR missed the accent).
 // Dropped as OCR junk: "Ooo 0", "Lty". Lines the frames did not confirm are kept as the OCR has them, in the lore file with [?].
@@ -9,7 +9,6 @@ export default {
   id: 'tasma1_ep04',
   tape: 1, index: 4, youtubeIndex: 4,
   title: 'Morowa 17 (ep04)',
-  loreFile: 'lore/ep04.md',
   status: 'wip',
   location: 'podworko',
   startCamera: 'front',

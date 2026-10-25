@@ -83,7 +83,7 @@ async function blackout(ms, burn) {
 }
 
 async function runStep(s, ctx) {
-  // { at: seconds } waits until that moment of the original episode (timestamps from lore_raw.md)
+  // { at: seconds } waits until that moment of the original episode (timestamps of the original episode)
   if (s.at != null && ctx.clock) {
     const ms = (s.at * 1000 * ctx.clock.scale) / SPEED - (performance.now() - ctx.clock.t0);
     if (ms > 0) await new Promise((r) => setTimeout(r, ms));

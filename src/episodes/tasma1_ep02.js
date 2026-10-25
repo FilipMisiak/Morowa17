@@ -1,11 +1,10 @@
-// Level 2 — built from lore/ep02.md (00:00:00–00:01:30). Dialogue is verbatim; `at` = second of the original episode.
+// Level 2 — (00:00:00–00:01:30). Dialogue is verbatim; `at` = second of the original episode.
 // Speakers are a working guess [?]: the visitor "Wojtek" (Major, off-screen) consoles / scolds Konon, who is the only man in the frames.
 const L = { charInterval: 100 };
 export default {
   id: 'tasma1_ep02',
   tape: 1, index: 2, youtubeIndex: 2,
   title: 'Morowa 17 (ep02)',
-  loreFile: 'lore/ep02.md',
   status: 'wip',
   startCamera: 'front',
   location: 'podworko',
