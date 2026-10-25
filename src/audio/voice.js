@@ -36,7 +36,7 @@ SPEAKERS.brazowy = { ...SPEAKERS.gospodarz, f0: 100, label: 'BRĄZOWA KURTKA', t
 // tape 2 minor characters: label shown next to the subtitle
 for (const [id, label, tag, f0] of [
   ['czapka', 'CZAPKA', '#6ac8c0', 110], ['kapelusz', 'KAPELUSZ', '#8ab870', 95], ['bluza', 'ŻÓŁTA BLUZA', '#c8d040', 88],
-  ['szarak', 'SZARA KURTKA', '#a8b098', 100], ['chudy', 'CHUDY', '#c8d0c0', 75],
+  ['szarak', 'SZARA KURTKA', '#a8b098', 100], ['chudy', 'CHUDY', '#c8d0c0', 75], ['zoltooki', 'ŻÓŁTE OCZY', '#e0d040', 70],
 ]) SPEAKERS[id] = { ...SPEAKERS.gospodarz, f0, label, tag };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 

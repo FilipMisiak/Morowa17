@@ -1,0 +1,103 @@
+// Level 12 — built from lore/ep12.md (00:00:00–00:03:14). Dialogue is verbatim; `at` = second of the original episode.
+// Speakers are a working guess [?]: Konon says the lines that name "wojtek" (Major, the man in the cap with the torch); Major answers about the solvent and the wiring.
+// OCR digits left as in the lore (no frame to check): "zapomniałem 0 jej", "1 po problemie", "1 majster zrobi prąd", "ja nie 0 tym", "a 0 czym", "0 znów działa".
+// Left out: "41 'córka'" (OCR junk, no frame) — only "córka" is shown. "nie zamknąłeś górnej urny" follows the frame (OCR order was scrambled).
+const L = { pos: 'bottom', charInterval: 100 };
+const place = (id, x, z) => ({ place: { id, x, z, face: 0 } });
+const hide = (...ids) => ids.map((id) => ({ show: { id, on: false } }));
+export default {
+  id: 'tasma2_ep02',
+  tape: 2, index: 2, youtubeIndex: 12,
+  title: 'Morowa 17 (ep12)',
+  loreFile: 'lore/ep12.md',
+  status: 'wip',
+  location: 'podworko',
+  startCamera: 'front',
+  letter: 'nie zamknąłeś górnej urny',
+  items: { kaseta: 1, bateria: 1, wegiel: 1, klodka: 1, przysmak: 1 },
+  duties: {},
+  steps: [
+    // [00:00:00–00:00:48] the house, the solvent, the man under the yellow lamp
+    { caption: { text: 'TAŚMA 2 · ODC. 12', pos: 'top' } },
+    { at: 2, line: { text: 'córka', speaker: 'major', ...L } },
+    { at: 6, location: 'piwnica', camera: 'polki' },
+    { at: 9, line: { text: 'rozpuszczalnika więcej doleje', speaker: 'major', ...L } },
+    { at: 13, line: { text: 'lepsze będzie', speaker: 'major', ...L } },
+    { at: 16, camera: 'lampa' }, place('major', -1.2, -0.4),
+    { beat: { id: 'rozpuszczalnik', actors: ['major'], need: 6 } },
+    { at: 19, line: { text: 'Ooo', speaker: 'konon', ...L } },
+    { at: 21, line: { text: 'rury sie wyczyszczą', speaker: 'major', ...L } },
+    { at: 26, camera: 'polki' }, { glitch: 0.4 },
+    { at: 29, camera: 'twarz' }, place('major', 0.0, -1.0),
+    { at: 33, glitch: 0.5 },
+    { at: 36, beatEnd: 'rozpuszczalnik' }, ...hide('major'),
+    { at: 38, location: 'podworko', camera: 'front' },
+    { line: { text: 'co sie dzieje sie', speaker: 'konon', ...L } },
+    { at: 41, location: 'piwnica', camera: 'twarz' }, place('konon', 0.0, -1.0),
+    { line: { text: 'ogułem', speaker: 'konon', pos: { x: 45, y: 90 }, charInterval: 100 } },
+    { at: 43, camera: 'polki' }, ...hide('konon'),
+    { line: { text: 'przebiło sie', speaker: 'konon', pos: { x: 40, y: 90 }, charInterval: 100 } },
+    { at: 46, line: { text: 'spłynął cały', speaker: 'major', ...L } },
+
+    // [00:00:49–00:01:32] "do piwnicy trzeba zejść": the ladder, the stairs, the red box
+    { at: 49, line: { text: 'do piwnicy trzeba zejść', speaker: 'konon', ...L } },
+    { at: 53, location: 'grill', camera: 'drabina' },
+    { at: 59, camera: 'drabina' }, place('major', 2.4, -2.6),
+    { beat: { id: 'zejscie', actors: ['major'], need: 4 } },
+    { at: 61, line: { text: 'zapomniałem 0 jej', speaker: 'major', ...L } },
+    { at: 64, line: { text: 'ale to zaraz', speaker: 'major', ...L } },
+    { at: 66, beatEnd: 'zejscie' }, ...hide('major'),
+    { at: 68, location: 'piwnica', camera: 'schody' }, place('major', 0.9, 0.9),
+    { beat: { id: 'schody', actors: ['major'], need: 4 } },
+    { at: 69, line: { text: 'przelał sie cały', speaker: 'major', ...L } },
+    { at: 74, camera: 'polki' }, ...hide('major'),
+    { at: 77, line: { text: 'podłoge sprzątać trzeba będzie', speaker: 'konon', ...L } },
+    { at: 81, camera: 'polki' },
+    { at: 82, line: { text: 'przeżarło na wylot', speaker: 'major', ...L } },
+    { at: 85, camera: 'twarz' }, place('zoltooki', 0.0, -1.0), { glitch: 0.8 }, { madness: 0.1 },
+    { at: 87, line: { text: 'od poniedziałku zaczniemy sprzątać', speaker: 'major', ...L } },
+    { at: 89, beatEnd: 'schody' }, ...hide('zoltooki'),
+
+    // [00:01:32–00:02:20] the urns in the dark, the torch
+    { at: 92, camera: 'nisza' }, place('konon', -0.9, 0.5), place('major', 0.2, 0.2),
+    { beat: { id: 'urny', actors: ['konon', 'major'], need: 8 } },
+    { line: { text: 'mnie teraz to ciekawi wojtek', speaker: 'konon', ...L } },
+    { at: 97, line: { text: 'czemu urny są otwarte', speaker: 'konon', ...L } },
+    { at: 101, line: { text: 'zaświeć mnie wojtek', speaker: 'konon', ...L } },
+    { at: 108, line: { text: 'nawet kości nie ma', speaker: 'konon', ...L } },
+    { at: 113, line: { text: 'dla ich lepiej zamknąć', speaker: 'major', ...L } },
+    { at: 116, camera: 'polki' }, { glitch: 0.4 },
+    { at: 119, camera: 'twarz' }, ...hide('konon', 'major'), place('zoltooki', 0.0, -1.0), { glitch: 0.9 }, { madness: 0.15 },
+    { at: 121, beatEnd: 'urny' },
+    { at: 122, line: { text: '1 po problemie', speaker: 'major', ...L } }, ...hide('zoltooki'),
+    { at: 126, line: { text: 'można robić kolacje wojtek', speaker: 'major', ...L } },
+    { at: 131, line: { text: 'co sie stało', speaker: 'konon', ...L } },
+    { at: 135, line: { text: 'instalacje przezarło', speaker: 'major', ...L } },
+
+    // [00:02:20–00:03:00] the table with the oil lamp and the clay head
+    { at: 140, camera: 'lampa' }, place('konon', -0.9, 0.4),
+    { beat: { id: 'lampa', actors: ['konon'], need: 6 } },
+    { at: 144, line: { text: 'nad czym myślisz wojtek', speaker: 'konon', ...L } },
+    { at: 149, line: { text: 'coś jest nie tak', speaker: 'major', ...L } },
+    { at: 151, line: { text: 'niepokój czuć', speaker: 'major', ...L } },
+    { at: 155, glitch: 0.6 },
+    { at: 157, line: { text: 'nie ma czym sie niepokoić', speaker: 'konon', ...L } },
+    { at: 162, line: { text: 'W poniedziałek pojade', speaker: 'konon', ...L } },
+    { at: 166, line: { text: '1 majster zrobi prąd', speaker: 'konon', ...L } },
+    { at: 169, glitch: 0.7 }, { madness: 0.1 },
+    { at: 171, line: { text: 'ja nie 0 tym', speaker: 'major', ...L } },
+    { at: 175, line: { text: 'a 0 czym', speaker: 'konon', ...L } },
+    { at: 177, beatEnd: 'lampa' }, ...hide('konon'),
+
+    // [00:02:57–00:03:14] the house in cold light, the room with pictures, red eyes
+    { at: 177, location: 'podworko', camera: 'front' }, { tint: 1 },
+    { at: 179, line: { text: '0 znów działa', speaker: 'konon', ...L } },
+    { at: 182, location: 'strych', camera: 'portret' }, { tint: 0 }, place('konon', 1.2, -0.2),
+    { beat: { id: 'obrazy', actors: ['konon'], need: 5 } },
+    { at: 184, line: { text: 'przypomniałem już', speaker: 'konon', ...L } },
+    { at: 187, glitch: 0.8 }, { madness: 0.15 },
+    { at: 189, line: { text: 'nie zamknąłeś górnej urny', speaker: 'konon', ...L } },
+    { at: 192, beatEnd: 'obrazy' },
+    { at: 194, black: 2000 },
+  ],
+};

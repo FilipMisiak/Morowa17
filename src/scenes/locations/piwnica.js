@@ -36,6 +36,21 @@ export function buildPiwnica() {
   const bowl = P.pot(true); bowl.position.set(-0.4, 0.5, 0.8); bowl.scale.setScalar(0.7); scene.add(bowl);
   void crate;
 
+  // ep12: a ledge with dark urns (one lid left off) in the front wall, and a table with an oil lamp, a plate and a clay head
+  add(new THREE.BoxGeometry(1.6, 0.06, 0.4), wood, -0.5, 0.85, 1.75);
+  for (const [x, lid] of [[-1.0, 1], [-0.6, 1], [-0.2, 0]]) {
+    add(new THREE.CylinderGeometry(0.1, 0.13, 0.3, 10), lam({ color: 0x7a7468 }), x, 1.03, 1.75);
+    if (lid) add(new THREE.CylinderGeometry(0.11, 0.11, 0.03, 10), lam({ color: 0x9a9488 }), x, 1.19, 1.75);
+  }
+  const lampTable = add(new THREE.BoxGeometry(0.8, 0.05, 0.5), wood, -1.4, 0.75, -0.9);
+  for (const [x, z] of [[-1.75, -1.1], [-1.05, -1.1], [-1.75, -0.7], [-1.05, -0.7]]) add(new THREE.BoxGeometry(0.05, 0.75, 0.05), wood, x, 0.37, z);
+  add(new THREE.CylinderGeometry(0.06, 0.08, 0.1, 8), lam({ color: 0xb08a30 }), -1.65, 0.83, -0.9);
+  add(new THREE.CylinderGeometry(0.07, 0.07, 0.2, 8), new THREE.MeshBasicMaterial({ color: 0xffd080 }), -1.65, 0.98, -0.9);
+  add(new THREE.CylinderGeometry(0.15, 0.15, 0.015, 12), lam({ color: 0xc8c0a8 }), -1.2, 0.79, -0.7);
+  add(new THREE.SphereGeometry(0.14, 10, 8), lam({ color: 0x9a7e5a }), -1.35, 0.93, -1.0);
+  for (const dx of [-0.05, 0.05]) add(new THREE.SphereGeometry(0.018, 5, 4), new THREE.MeshBasicMaterial({ color: 0xff2010 }), -1.35 + dx, 0.95, -0.87);
+  void lampTable;
+
   scene.add(new THREE.HemisphereLight(0x7a9a60, 0x2a2a18, 1.0));
   const bulb = new THREE.PointLight(0xe0c080, 14, 0, 2); bulb.position.set(0, 2.0, 0); scene.add(bulb);
   const bulbMesh = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6, 6), new THREE.MeshBasicMaterial({ color: 0xffe0a0 })); bulbMesh.position.copy(bulb.position); scene.add(bulbMesh);
@@ -46,6 +61,8 @@ export function buildPiwnica() {
       schody:   { label: 'SCHODY',  pos: [-1.2, 1.9, -1.3], look: [1.3, 0.7, 1.4], fov: 70 },
       korytarz: { label: 'DRZWI',   pos: [1.2, 1.5, 1.4],   look: [-1.8, 1.1, 0.4],  fov: 58 },
       polki:    { label: 'PÓŁKI',   pos: [0.0, 1.4, 0.2],   look: [0, 0.9, -1.85],   fov: 50 },
+      nisza:    { label: 'URNY',    pos: [0.6, 1.4, -1.0],  look: [-0.7, 1.0, 1.8],  fov: 50 },
+      lampa:    { label: 'LAMPA',   pos: [-0.4, 1.3, -0.1], look: [-1.4, 0.9, -0.9], fov: 48 },
       twarz:    { label: 'TWARZ',   pos: [0.0, 0.45, 0.3],  look: [0, 1.75, -1.0],   fov: 58 },
     },
     startCamera: 'polki',

@@ -14,4 +14,6 @@ export default [
   garbDef({ id: 'szarak', height: 1.72, face: face({ w: 66, h: 76, skin: [170, 152, 126], jaw: 0.06, stubble: 100, seed: 74 }), torso: '#6a7260', pocket: '#e0e0d0', pants: '#26282a' }),
   // ep11: the gaunt bald one with red points for eyes in front of the house
   garbDef({ id: 'chudy', height: 1.78, face: face({ w: 58, h: 82, skin: [186, 190, 180], hair: [186, 190, 180], glow: [230, 30, 20], stubble: 0, jaw: -0.1, brow: 3, seed: 75 }), torso: '#0a0a0a', pants: '#14141a' }),
+  // ep12: pale green face with glowing yellow eyes and an open red mouth
+  garbDef({ id: 'zoltooki', height: 1.76, face: face({ w: 60, h: 80, skin: [150, 170, 138], hair: [150, 170, 138], glow: [240, 220, 40], teeth: [230, 226, 190], stubble: 0, jaw: 0.04, brow: 3, seed: 76 }), torso: '#10120e', pants: '#14161a' }),
 ];
