@@ -46,4 +46,10 @@ export default [
   // ep18: bald bearded man in a dark polo-neck jumper, and a fair man in a logo T-shirt
   garbDef({ id: 'brodacz', height: 1.8, face: face({ w: 68, h: 80, skin: [170, 146, 124], hair: [170, 146, 124], stubble: 240, jaw: 0.1, seed: 91 }), torso: '#1c1c22', pants: '#1c1c20' }),
   garbDef({ id: 'blondyn', height: 1.78, face: face({ w: 60, h: 78, skin: [200, 176, 150], hair: [210, 190, 130], stubble: 10, seed: 92 }), torso: '#c8c8c0', pocket: '#2a2a2a', pants: '#3a4a5a' }),
+  // ep20: man A — red-orange cardigan with big buttons over a black tee, chalk-white face with dark sockets, ears sticking out
+  garbDef({ id: 'kardigan', height: 1.76, face: face({ w: 62, h: 80, skin: [214, 210, 196], hair: [24, 20, 18], glow: [240, 240, 220], teeth: [236, 232, 210], stubble: 0, jaw: 0.02, brow: 8, seed: 93 }), torso: '#c8481c', pocket: '#101010', pants: '#18181c' }),
+  // ep20: man B — white bib with roosters over a dark shirt, receding dark hair
+  garbDef({ id: 'kogut', height: 1.74, face: face({ w: 58, h: 78, skin: [180, 158, 134], hair: [30, 26, 22], stubble: 40, jaw: 0.02, seed: 94 }), torso: '#22201e', pocket: '#e8e4d4', pants: '#26282c' }),
+  // ep20: winter figure in a dark parka with a fur-trimmed hood
+  garbDef({ id: 'kaptur', height: 1.8, face: face({ w: 56, h: 76, skin: [60, 56, 52], hair: [20, 18, 16], stubble: 0, seed: 95 }), torso: '#16181c', pants: '#101216', hat: { kind: 'hood', color: '#1c1a18' } }),
 ];
