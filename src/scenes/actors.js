@@ -61,6 +61,8 @@ export function buildActors(scene) {
 
   return {
     ents,
+    /** Moves every actor into another scene (location change). */
+    attach(newScene) { for (const e of Object.values(ents)) newScene.add(e.group); },
     place(id, x, z, face = 0, y = 0) {
       const e = ents[id];
       if (!e) return;

@@ -14,6 +14,7 @@ export const state = {
   inventory: {},     // itemId -> count
   selected: null,    // inventory item picked for use on a hotspot
   level: 'idle',     // 'idle' | 'running' | 'won' | 'lost'
+  location: 'chata', // current location id (scenes/world.js)
 };
 
 /** Fresh level: keeps global time, resets everything the player manages. */

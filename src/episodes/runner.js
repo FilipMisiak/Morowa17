@@ -56,6 +56,7 @@ export async function runEpisode(ep, ctx) {
   ctx.duties.configure(ep.duties);
   ctx.recording.reset(ep.steps);
   for (const [item, n] of Object.entries(ep.items ?? { kaseta: 1, bateria: 1, wegiel: 2, klodka: 1, przysmak: 2 })) give(item, n);
+  ctx.clock = { t0: performance.now(), scale: ep.timeScale ?? 1 };
   await ep.setup?.(ctx);
   for (const step of ep.steps ?? []) {
     if (token !== runToken) return; // cancelled
@@ -74,7 +75,13 @@ const SPEED = Math.max(1, Number(new URLSearchParams(location.search).get('speed
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms / SPEED));
 
 async function runStep(s, ctx) {
-  if (s.camera) { ctx.rig.goTo(s.camera); kick(0.8); sfx.cut(); }
+  // { at: seconds } waits until that moment of the original episode (timestamps from lore_raw.md)
+  if (s.at != null && ctx.clock) {
+    const ms = (s.at * 1000 * ctx.clock.scale) / SPEED - (performance.now() - ctx.clock.t0);
+    if (ms > 0) await new Promise((r) => setTimeout(r, ms));
+  }
+  if (s.location) { await ctx.world.go(s.location, s.camera); sfx.cut(); }
+  else if (s.camera) { ctx.rig.goTo(s.camera); kick(0.8); sfx.cut(); }
   if (s.line) await playLine({ kind: 'speech', ...s.line });
   if (s.caption) await playLine({ kind: 'caption', ...s.caption });
   if (s.say) speak(s.say.text, s.say);

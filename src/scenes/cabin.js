@@ -3,6 +3,7 @@ import { psxify } from '../render/psx.js';
 import { woodTexture, paperSheet } from '../procedural/textures.js';
 import { dadoWall } from '../procedural/decor.js';
 import * as P from './props.js';
+import { CAMERA_NODES } from './cameras.js';
 
 /**
  * The house: one room with recognisable props (see lore/*.md "Wygląd"): olive plaster with a green dado, iron stove in a
@@ -128,7 +129,7 @@ export function buildCabin() {
 
   let hoverId = null;
   return {
-    scene, hotspots, paper,
+    scene, hotspots, paper, nodes: CAMERA_NODES, startCamera: 'door',
     setHover(id) { hoverId = id; },
     /** 0 = shut, 1 = wide open (hinged at the back edge). */
     setHatch(open) { hatchPivot.rotation.x = open * 1.1; },

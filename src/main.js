@@ -5,6 +5,7 @@ import { bus } from './core/bus.js';
 import { createPipeline } from './render/pipeline.js';
 import { buildCabin } from './scenes/cabin.js';
 import { createCameraRig } from './scenes/cameras.js';
+import { createWorld } from './scenes/world.js';
 import { createInput } from './core/input.js';
 import { updateSanity } from './systems/sanity.js';
 import { createDuties } from './systems/duties.js';
@@ -26,6 +27,7 @@ const pipeline = createPipeline(canvas);
 const cabin = buildCabin();
 const rig = createCameraRig();
 const actors = buildActors(cabin.scene);
+const world = createWorld({ rig, actors, initial: cabin });
 const recording = createRecording(actors, rig);
 const camcorder = createCamcorder({ rig, actors, recording });
 const duties = createDuties({ cabin, actors });
@@ -34,11 +36,12 @@ initRituals({ cabin });
 const input = createInput({
   canvas, pipeline,
   getCamera: () => rig.camera,
-  getHotspots: () => cabin.hotspots,
-  onHover: (h) => { hud.hint(h?.label); cabin.setHover(h?.id ?? null); },
+  getHotspots: () => world.current.hotspots,
+  onHover: (h) => { hud.hint(h?.label); world.current.setHover?.(h?.id ?? null); },
 });
-const ctx = { scene: cabin.scene, cabin, rig, actors, recording, duties, THREE };
+const ctx = { scene: cabin.scene, cabin, world, rig, actors, recording, duties, THREE };
 
+bus.on('location', () => hud.hint(''));
 // cut effect on every camera change
 bus.on('camera', () => kick(0.7));
 rig.goTo('door');
@@ -49,7 +52,7 @@ async function play(id) {
   result.hide();
   const ep = await loadEpisode(id);
   console.info('[episode]', ep.id, ep.status);
-  rig.goTo(ep.startCamera ?? 'door');
+  await world.go(ep.location ?? 'chata', ep.startCamera ?? (ep.location ? undefined : 'door'));
   runEpisode(ep, ctx);
 }
 let nextId = null;
@@ -84,10 +87,10 @@ function frame(now) {
     if (state.level === 'running' && state.madness >= 1) bus.emit('level:lost', 'Powidok stanął tuż obok. Obłęd 100%.');
   }
   actors.update(dt, stepped, rig.camera);
-  cabin.update(stepped, state.madness, state.cam.raised);
+  world.current.update(stepped, state.madness, state.cam.raised);
   rig.update(dt, input.pointer);
   hud.update();
-  pipeline.render(cabin.scene, rig.camera, { time: stepped, madness: state.madness, glitch: state.glitch });
+  pipeline.render(world.current.scene, rig.camera, { time: stepped, madness: state.madness, glitch: state.glitch });
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
@@ -110,7 +113,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'g') kick(1);
 });
 if (params.has('debug')) {
-  window.__m17 = { state, rig, cabin, actors, audio, play, clamp, bus };
+  window.__m17 = { state, rig, cabin, world, actors, audio, play, clamp, bus };
   // stable read-only status for automated tests (scripts/test-runner.js) and MCP Puppeteer
   window.__GAME_DEBUG__ = {
     get status() {
@@ -120,6 +123,7 @@ if (params.has('debug')) {
         currentCamera: state.cameraId,
         sanityLevel: state.madness,
         activeEpisode: state.episodeId,
+        location: state.location,
         level: state.level,
         coverage: state.coverage,
         strikes: state.strikes,

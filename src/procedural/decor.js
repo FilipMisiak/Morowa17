@@ -147,3 +147,61 @@ export function jarsTexture() {
     }
   });
 }
+
+/** Forest floor: dark leaf litter with green undergrowth speckle. */
+export function leafLitter(repeat = [10, 10]) {
+  return tex(128, 128, (ctx, w, h) => {
+    ctx.fillStyle = '#1b2a14'; ctx.fillRect(0, 0, w, h);
+    const r = mulberry32(41);
+    for (let i = 0; i < 900; i++) {
+      const g = r();
+      ctx.fillStyle = g < 0.45 ? `rgb(${30 + r() * 25},${60 + r() * 50},${22 + r() * 20})` : g < 0.75 ? `rgb(${50 + r() * 30},${38 + r() * 20},${18})` : 'rgba(5,10,3,.7)';
+      ctx.fillRect(r() * w, r() * h, 2 + r() * 4, 2 + r() * 3);
+    }
+  }, repeat);
+}
+
+/** Cluster of leaves with alpha (for crossed foliage quads). */
+export function leafCluster(seed = 1, tint = [40, 90, 34]) {
+  const t = tex(64, 64, (ctx, w, h) => {
+    ctx.clearRect(0, 0, w, h);
+    const r = mulberry32(seed);
+    for (let i = 0; i < 70; i++) {
+      const x = 8 + r() * (w - 16), y = 8 + r() * (h - 16), k = 0.6 + r() * 0.7;
+      ctx.fillStyle = `rgb(${tint[0] * k},${tint[1] * k},${tint[2] * k})`;
+      ctx.beginPath(); ctx.ellipse(x, y, 4 + r() * 4, 2.5 + r() * 2.5, r() * 3, 0, 7); ctx.fill();
+    }
+  });
+  t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+  return t;
+}
+
+/** Wooden sign: "REZERWAT PRZYRODY „LAS ZWIERZYNIECKI"" with the yellow radiation trefoil triangle (ep02). */
+export function reserveSign() {
+  const t = tex(256, 128, (ctx, w, h) => {
+    ctx.fillStyle = '#2a1e16'; ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#e6b42a'; ctx.beginPath(); ctx.moveTo(w / 2, 8); ctx.lineTo(w / 2 + 14, 32); ctx.lineTo(w / 2 - 14, 32); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#2a1e16'; ctx.beginPath(); ctx.arc(w / 2, 26, 3.5, 0, 7); ctx.fill();
+    ctx.fillStyle = '#e8e3d0'; ctx.font = 'bold 22px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('REZERWAT PRZYRODY', w / 2, 66);
+    ctx.fillText('„LAS ZWIERZYNIECKI"', w / 2, 98);
+  });
+  t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+  return t;
+}
+
+/** Dark red wooden clapboard (house exterior). */
+export function redPlanks(repeat = [3, 2]) {
+  return tex(64, 64, (ctx, w, h) => {
+    for (let y = 0; y < h; y += 8) { ctx.fillStyle = `rgb(${70 + (y % 16)},${24},${18})`; ctx.fillRect(0, y, w, 7); ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillRect(0, y + 7, w, 1); }
+    grain(ctx, w, h, 14, 200, 0.2);
+  }, repeat);
+}
+
+export function roofTiles(repeat = [4, 2]) {
+  return tex(64, 64, (ctx, w, h) => {
+    ctx.fillStyle = '#1c2a1a'; ctx.fillRect(0, 0, w, h);
+    for (let y = 0; y < h; y += 8) for (let x = (y / 8) % 2 ? 0 : 6; x < w; x += 12) { ctx.fillStyle = `rgb(${28 + (x % 9)},${46 + (y % 7)},${26})`; ctx.fillRect(x, y, 11, 7); }
+    grain(ctx, w, h, 19, 200, 0.2);
+  }, repeat);
+}
