@@ -13,6 +13,7 @@ const loaders = {
   basen: async () => (await import('./locations/basen.js')).buildBasen(),
   lawa: async () => (await import('./locations/lawa.js')).buildLawa(),
   wiata: async () => (await import('./locations/wiata.js')).buildWiata(),
+  hala: async () => (await import('./locations/hala.js')).buildHala(),
   poddasze: async () => (await import('./locations/poddasze.js')).buildPoddasze(),
   zima: async () => (await import('./locations/zima.js')).buildZima(),
   piwnica: async () => (await import('./locations/piwnica.js')).buildPiwnica(),

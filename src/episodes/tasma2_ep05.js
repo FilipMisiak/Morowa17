@@ -69,8 +69,8 @@ export default {
     { at: 117, glitch: 0.8 }, { madness: 0.1 },
     { at: 121, glitch: 0.6 },
     { at: 123, beatEnd: 'cien' }, ...hide('shade'),
-    { at: 126, location: 'podworko', camera: 'plot' },
-    { at: 146, location: 'poddasze', camera: 'ogolny' }, { tint: 0 },
+    { at: 126, location: 'hala', camera: 'wieza' },
+    { at: 146, camera: 'hala' }, { tint: 0 },
     { at: 150, black: 2000 },
   ],
 };
