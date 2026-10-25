@@ -24,4 +24,8 @@ export default [
   garbDef({ id: 'rudy', height: 1.74, face: face({ w: 64, h: 78, skin: [176, 150, 124], hair: [110, 104, 96], stubble: 100, jaw: 0.06, seed: 79 }), torso: '#9a5a2c', pocket: '#caa878', pants: '#2a2a28', gloves: '#14120e', hat: { kind: 'cap', color: '#3a6a34' } }),
   // ep13: bald man in black sunglasses and a green pocket shirt
   garbDef({ id: 'okularnik', height: 1.8, face: face({ w: 64, h: 80, skin: [190, 170, 146], hair: [190, 170, 146], glow: [8, 8, 8], stubble: 20, jaw: 0.04, seed: 80 }), torso: '#4a6a3a', pocket: '#e0e0cc', pants: '#2a2c2e', gloves: '#14120e' }),
+  // ep15: stocky man, buzz cut, yellow hi-vis vest over a red-brown shirt (reads the letter from the Mexican)
+  garbDef({ id: 'kamizelka', height: 1.72, face: face({ w: 66, h: 76, skin: [168, 146, 122], hair: [30, 26, 22], stubble: 90, jaw: 0.08, seed: 81 }), torso: '#6a3a2c', vest: '#c8d020', pants: '#24262a' }),
+  // ep15: balding man in a floral / camo jacket, holds a bundle in the doorway
+  garbDef({ id: 'kwiat', height: 1.74, face: face({ w: 62, h: 78, skin: [160, 146, 130], hair: [40, 34, 28], glow: [220, 200, 180], stubble: 70, jaw: 0, seed: 82 }), torso: '#4a5a3a', pocket: '#8a9a70', pants: '#1c1c1e' }),
 ];
