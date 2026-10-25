@@ -9,6 +9,7 @@ import majorDef from './characters/major.js';
 import goscDef from './characters/gosc.js';
 import zoltyDef from './characters/zolty.js';
 import meczennikDef from './characters/meczennik.js';
+import maskaDef from './characters/maska.js';
 
 const LOOK = new THREE.Vector3();
 
@@ -43,6 +44,7 @@ export function buildActors(scene) {
   character(goscDef);
   character(zoltyDef);
   character(meczennikDef);
+  character(maskaDef);
   const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
   bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
