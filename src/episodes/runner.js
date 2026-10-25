@@ -74,6 +74,14 @@ export async function runEpisode(ep, ctx) {
 const SPEED = Math.max(1, Number(new URLSearchParams(location.search).get('speed')) || 1);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms / SPEED));
 
+/** Covers the picture with black (or, with `burn`, the cream of a burnt tape) for `ms`, like the empty frames of the original. */
+async function blackout(ms, burn) {
+  const el = document.getElementById('blackout');
+  el.classList.toggle('burn', !!burn); el.classList.add('on');
+  await sleep(ms);
+  el.classList.remove('on');
+}
+
 async function runStep(s, ctx) {
   // { at: seconds } waits until that moment of the original episode (timestamps from lore_raw.md)
   if (s.at != null && ctx.clock) {
@@ -84,6 +92,7 @@ async function runStep(s, ctx) {
   else if (s.camera) { ctx.rig.goTo(s.camera); kick(0.8); sfx.cut(); }
   if (s.line) await playLine({ kind: 'speech', ...s.line });
   if (s.caption) await playLine({ kind: 'caption', ...s.caption });
+  if (s.black) await blackout(s.black, s.burn);
   if (s.say) speak(s.say.text, s.say);
   if (s.overlap) await Promise.all(s.overlap.map((x) => runStep(x, ctx)));
   if (s.place) ctx.actors.place(s.place.id, s.place.x, s.place.z, s.place.face, s.place.y);

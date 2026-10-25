@@ -64,6 +64,6 @@ export default {
     { at: 93, line: { text: 'dziś mój specjał', speaker: 'major', ...L } },
     { at: 94, line: { text: 'bigos z dziąślaną ropą', speaker: 'major', ...L } },
     { glitch: 1 }, { madness: 0.15 },
-    { at: 98, wait: 2000 },
+    { at: 98, black: 2000 },
   ],
 };

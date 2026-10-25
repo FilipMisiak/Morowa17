@@ -65,7 +65,7 @@ export default {
     { at: 89, line: { text: 'pora iść spać', speaker: 'major', ...LEFT } },
     { at: 91, line: { text: 'dobranoc wojtek', speaker: 'major', ...LEFT } },
     { at: 95, beatEnd: 'stol' }, ...hide('major', 'konon'),
-    { at: 96, wait: 1500 }, // black frame
+    { at: 96, black: 1500 }, // black frame
 
     // [00:01:38–00:01:50] the house, the bedroom: "kurwa diabeł"
     { at: 98, location: 'podworko', camera: 'front' },
@@ -99,6 +99,6 @@ export default {
     { at: 160, location: 'piwnica', camera: 'twarz' }, place('konon', 0.0, -1.0),
     { line: { text: 'zwiastun śmierci', speaker: 'konon', pos: 'bottom', color: '#e8dca0', charInterval: 100 } },
     { glitch: 1 }, { madness: 0.15 },
-    { at: 163, wait: 1500 },
+    { at: 163, black: 1500 },
   ],
 };

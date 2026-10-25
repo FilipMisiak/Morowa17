@@ -45,7 +45,7 @@ export default {
     { at: 42, sfx: 'knock' }, { madness: 0.1 },
     { at: 48, beatEnd: 'klapa' },
     { show: { id: 'konon', on: false } },
-    { at: 49, wait: 1500 }, // black frame
+    { at: 49, black: 1500 }, // black frame
 
     // [00:00:51] the house in rain-green, then the yellow-eyed face under the tiles
     { at: 51, location: 'podworko', camera: 'front' },
@@ -66,6 +66,6 @@ export default {
     { at: 75, location: 'lazienka', camera: 'twarz' },
     place('konon', -1.0, -0.5),
     { glitch: 1 },
-    { at: 77, wait: 1800 },
+    { at: 77, black: 1800 },
   ],
 };

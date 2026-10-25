@@ -22,7 +22,8 @@ export default {
     { caption: { text: 'TAŚMA 1 · ODC. 08', pos: 'top' } },
     { at: 2, caption: { text: '"polowanie"', pos: 'center' } },   // OCR: `71 'polowanie"` — prefix is junk
     { at: 4, location: 'las', camera: 'kloda' },
-    { at: 7, camera: 'polana' },
+    { at: 7, camera: 'rama' },    // frame 00:07: an empty frame lying on the leaves
+    { at: 9, camera: 'polana' },
 
     // [00:00:10–00:00:22] the window with the red glow
     { at: 10, location: 'chata', camera: 'window' },
@@ -67,10 +68,11 @@ export default {
 
     // [00:01:17–00:02:01] the house at dusk, the attic: "pusto", "nikogo nie ma"
     { at: 77, location: 'podworko', camera: 'front' },
-    { at: 81, location: 'strych', camera: 'plakaty' },
-    place('konon', -0.4, 0.5),
+    { at: 81, location: 'poddasze', camera: 'ogolny' },
+    place('konon', -0.2, 0.2),
     { beat: { id: 'strych', actors: ['konon'], need: 6 } },
-    { at: 91, camera: 'sofa' },
+    { at: 91, camera: 'ubrania' },
+    { at: 101, camera: 'skrzynia' },
     { at: 98, line: { text: 'trzeba otworzyć i sprawdzić', speaker: 'konon', ...L } },
     { at: 107, line: { text: 'pusto', speaker: 'konon', ...L } }, { sfx: 'creak' },
     { at: 111, line: { text: 'w drugiej', speaker: 'konon', ...L } },
@@ -94,7 +96,7 @@ export default {
     { at: 143, line: { text: 'strzelaj', speaker: 'konon', ...L } },
     { at: 144, beatEnd: 'drzwi' },
     ...hide('konon', 'zolty'),
-    { at: 146, wait: 1500 }, // black frame
+    { at: 146, black: 1500 }, // black frame
 
     // [00:02:29–00:02:40] the clearing: the hunt
     { at: 149, location: 'las', camera: 'polana' }, { sfx: 'knock' },
@@ -107,6 +109,6 @@ export default {
     { at: 157, line: { text: 'spierdoliła', speaker: 'konon', ...TOP } }, { glitch: 0.8 },
     { at: 159, line: { text: 'sie nadajeci', speaker: 'konon', ...L } },
     { at: 160, beatEnd: 'polowanie' },
-    { wait: 1800 }, // black frame
+    { black: 1800 }, // black frame
   ],
 };

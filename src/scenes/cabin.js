@@ -56,6 +56,7 @@ export function buildCabin() {
   // shelf with jars + clock on the back wall
   place(P.shelf(1.3), [0.1, 1.15, -1.86]);
   place(P.clock(), [0.95, 2.1, -1.97]);
+  place(P.poster('2016', 0.5, 0.75), [1.75, 1.45, -1.96]);
 
   // table with a flower cloth, mugs, bottle, chairs
   place(P.table(), [0.3, 0, 0.5]);

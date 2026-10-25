@@ -104,13 +104,14 @@ export default {
     { at: 236, line: { text: 'precz mnie', speaker: 'konon', ...L } },
     { at: 241, line: { text: 'co tam sie do kurrrwy wyprawia', speaker: 'konon', ...L } },
     { at: 244, beatEnd: 'portret' }, ...hide('konon'),
-    { at: 245, location: 'podworko', camera: 'plot' },
+    { at: 245, location: 'zima', camera: 'tv' }, place('konon', -0.6, 0.6),
     { at: 248, line: { text: 'Zabierzcie mnie', speaker: 'konon', ...L } },
-    { at: 251, camera: 'front' },
+    { at: 251, camera: 'krata' }, ...hide('konon'),
+    { at: 254, location: 'podworko', camera: 'front' },
 
     // [00:04:17–00:04:44] the tape burns out
-    { at: 257, glitch: 1 }, { at: 262, wait: 1500 },
+    { at: 257, glitch: 1 }, { at: 258, black: 3000, burn: true }, { black: 8000 },
     { at: 270, caption: { text: 'koniec taśmy 1', pos: 'center' } },
-    { at: 284, wait: 1500 },
+    { at: 284, black: 1500 },
   ],
 };

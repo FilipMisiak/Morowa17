@@ -67,6 +67,6 @@ export default {
     { at: 103, line: { text: 'czujesz go pan?', speaker: 'konon', ...L } }, { sfx: 'creak' },
     { at: 109, line: { text: 'to będzie wspaniała noc', speaker: 'konon', ...L } }, { glitch: 1 }, { madness: 0.15 },
     { at: 111, beatEnd: 'noc' },
-    { wait: 2000 }, // black frame at the end of the original
+    { black: 2000 }, // black frame at the end of the original
   ],
 };

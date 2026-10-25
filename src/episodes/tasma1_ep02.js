@@ -62,6 +62,6 @@ export default {
     { at: 88, line: { text: 'wojtek zawsze wraca', speaker: 'konon', pos: 'bottom', ...L } },
     { at: 91, beatEnd: 'wygnanie' },
     { glitch: 1 },
-    { wait: 3000 }, // black screen at the end of the original
+    { black: 3000 }, // black screen at the end of the original
   ],
 };

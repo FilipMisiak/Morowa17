@@ -38,6 +38,7 @@ export default {
     { show: { id: 'konon', on: false } },
 
     // [00:00:33] the yard in daylight, then [00:00:37–00:00:50] "moje mleczko"
+    { at: 28, black: 4500 },
     { at: 33, location: 'podworko', camera: 'plot' },
     { at: 37, location: 'strych', camera: 'stol' },
     ...only('konon', { x: 1.0, z: -0.3, face: 0 }),
@@ -75,6 +76,6 @@ export default {
 
     // [00:01:30–00:01:36] the yard again, then black
     { at: 90, location: 'podworko', camera: 'plot' },
-    { at: 96, wait: 2000 },
+    { at: 96, black: 2000 },
   ],
 };

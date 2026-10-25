@@ -27,6 +27,7 @@
  *     { line: { text: '...', speaker: 'gospodarz', pos: 'bottom', color: '#d8c9a3' } },   // subtitle + voice + chatter
  *     { caption: { text: '...', pos: 'top' } },                 // on-screen tape text (chatter only)
  *     { say: { text, speaker } },                               // voice-only line
+ *     { black: 2000, burn?: true },                              // ms of black screen (burn = cream, burnt tape)
  *     { wait: 1500 },                                           // ms
  *     { overlap: [ {line:{...}}, {line:{...}} ] },              // start several at once on purpose (possessed overlap)
  *     { sfx: 'knock' | 'creak' | 'cut' | 'bowl' | 'silence' },  // see audio/drone.js

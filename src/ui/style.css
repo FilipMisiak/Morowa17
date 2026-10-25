@@ -71,3 +71,8 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; color:
 #result h2 { letter-spacing: .3em; font-weight: normal; }
 #result button { background: none; color: var(--beige); border: 1px solid var(--beige); padding: .7rem 1.2rem; margin: .4rem; font: inherit; cursor: pointer; }
 #result button:hover, #result button:focus-visible { background: var(--beige); color: #050403; outline: none; }
+
+/* black / burnt-out frames of the original tape (episode step `black`) */
+#blackout { position: fixed; inset: 0; z-index: 4; background: #000; opacity: 0; pointer-events: none; transition: opacity .08s; }
+#blackout.on { opacity: 1; }
+#blackout.burn { background: #e8dcb0; }

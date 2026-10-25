@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { psxify } from '../render/psx.js';
 import { woodTexture, rustTexture } from '../procedural/textures.js';
 import {
-  flowerCloth, zebraFabric, pictureTexture, keysTexture, curtainTexture, doorTexture, jarsTexture, brickTexture,
+  flowerCloth, zebraFabric, pictureTexture, keysTexture, curtainTexture, doorTexture, jarsTexture, brickTexture, posterTexture,
 } from '../procedural/decor.js';
 
 /** Recognisable props built from primitives. Every builder returns a Group with its origin on the floor. */
@@ -108,6 +108,14 @@ export function frame(kind = 'portrait', seed = 1, w = 0.34, h = 0.42) {
   box(g, w + 0.06, h + 0.06, 0.03, m.black, 0, 0, 0);
   const pic = new THREE.Mesh(new THREE.PlaneGeometry(w, h), basic({ map: pictureTexture(kind, seed), color: 0xb0b0a0 }));
   pic.position.z = 0.02; g.add(pic);
+  return g;
+}
+
+/** Flat poster / banner (see decor.posterTexture): '2016' | 'orzadek' | 'polska' | 'stadion'. */
+export function poster(kind = '2016', w = 0.5, h = 0.75) {
+  const g = new THREE.Group();
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), basic({ map: posterTexture(kind), color: 0xb8b8a8 }));
+  g.add(m);
   return g;
 }
 

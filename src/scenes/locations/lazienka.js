@@ -14,7 +14,7 @@ export function buildLazienka() {
 
   // shell: x -1.5..1.5, z -1.3..1.3, height 2.4
   add(new THREE.PlaneGeometry(3, 2.6), lam({ map: woodTexture({ seed: 31, planks: 6, repeat: [1, 1], dark: [16, 14, 10], light: [60, 52, 36] }) }), 0, 0, 0, -Math.PI / 2);
-  add(new THREE.PlaneGeometry(3, 2.6), lam({ color: 0x3a3a2a }), 0, 2.4, 0, Math.PI / 2);
+  add(new THREE.PlaneGeometry(3, 2.6), lam({ map: tileTexture([3, 2.6]) }), 0, 2.4, 0, Math.PI / 2);
   const tiles = lam({ map: tileTexture([3, 1.5]) }), upper = lam({ map: dadoWall(9) });
   add(new THREE.PlaneGeometry(3, 1.4), tiles, 0, 0.7, -1.3);
   add(new THREE.PlaneGeometry(3, 1.0), upper, 0, 1.9, -1.3);
@@ -43,6 +43,8 @@ export function buildLazienka() {
   for (const [x, z, c] of [[-1.1, 0.0, 'glass'], [-1.2, 0.1, 'green'], [-1.05, 0.2, 'glass']]) { const b = P.bottle(c); b.position.set(x, 0.85, z); scene.add(b); }
   const bag = add(new THREE.SphereGeometry(0.22, 8, 6), lam({ color: 0x0b0b0a }), -1.2, 1.0, 0.5); bag.scale.set(1, 0.8, 1.1);
   const cloth = add(new THREE.SphereGeometry(0.18, 7, 5), lam({ color: 0x3e5a3a }), -1.15, 0.95, 0.75); cloth.scale.set(1.3, 0.5, 1);
+  const banner = P.poster('polska', 0.9, 0.28); banner.position.set(0.9, 1.9, -1.28); scene.add(banner);
+  const flag = P.poster('stadion', 0.5, 0.34); flag.position.set(1.48, 1.0, 0.7); flag.rotation.y = -Math.PI / 2; scene.add(flag);
   const win = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.6), new THREE.MeshBasicMaterial({ color: 0x4a6a40 })); win.position.set(1.49, 1.6, -0.3); win.rotation.y = -Math.PI / 2; scene.add(win);
 
   scene.add(new THREE.HemisphereLight(0x9aa870, 0x3a3020, 1.5));

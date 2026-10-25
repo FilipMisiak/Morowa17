@@ -43,7 +43,7 @@ export function buildPiwnica() {
   return {
     scene, hotspots: [], setHover() {},
     nodes: {
-      schody:   { label: 'SCHODY',  pos: [0.0, 1.9, -1.2], look: [1.3, 0.8, 1.2], fov: 62 },
+      schody:   { label: 'SCHODY',  pos: [-1.2, 1.9, -1.3], look: [1.3, 0.7, 1.4], fov: 70 },
       korytarz: { label: 'DRZWI',   pos: [1.2, 1.5, 1.4],   look: [-1.8, 1.1, 0.4],  fov: 58 },
       polki:    { label: 'PÓŁKI',   pos: [0.0, 1.4, 0.2],   look: [0, 0.9, -1.85],   fov: 50 },
       twarz:    { label: 'TWARZ',   pos: [0.0, 0.45, 0.3],  look: [0, 1.75, -1.0],   fov: 58 },

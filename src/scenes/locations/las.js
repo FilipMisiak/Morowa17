@@ -42,6 +42,11 @@ export function buildLas() {
   }
   const stump = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.5, 8), lam({ color: 0x3a3020 })); stump.position.set(0.9, 0.25, 0.2); scene.add(stump);
 
+  // ep08 00:07: an empty wooden frame lying on the leaves
+  const rama = new THREE.Group();
+  for (const [w, d, x, z] of [[1.0, 0.08, 0, -0.46], [1.0, 0.08, 0, 0.46], [0.08, 0.84, -0.46, 0], [0.08, 0.84, 0.46, 0]]) { const b = new THREE.Mesh(new THREE.BoxGeometry(w, 0.06, d), lam({ color: 0xb8a878, emissive: 0x3a3420 })); b.position.set(x, 0, z); rama.add(b); }
+  rama.position.set(1.6, 0.05, 1.6); rama.rotation.y = 0.5; scene.add(rama);
+
   scene.add(new THREE.HemisphereLight(0x8abaa0, 0x2a3a24, 2.6));
   const moon = new THREE.DirectionalLight(0x9ab8c8, 0.9); moon.position.set(-3, 6, 4); scene.add(moon);
 
@@ -50,6 +55,7 @@ export function buildLas() {
     nodes: {
       znak:   { label: 'TABLICA', pos: [-0.2, 1.45, 1.8], look: [-0.8, 1.6, -2.5], fov: 55 },
       polana: { label: 'POLANA',  pos: [0.4, 1.5, 3.2],   look: [0.6, 1.0, -1.0], fov: 58 },
+      rama:   { label: 'RAMA',    pos: [1.6, 2.2, 1.9], look: [1.6, 0.0, 1.6], fov: 55 },
       kloda:  { label: 'KŁODA',   pos: [-0.6, 1.2, 1.9],  look: [1.0, 0.5, 0.0],  fov: 52 },
     },
     startCamera: 'znak',

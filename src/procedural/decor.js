@@ -217,3 +217,32 @@ export function tileTexture(repeat = [4, 2]) {
     grain(ctx, w, h, 23, 260, 0.22);
   }, repeat);
 }
+
+/**
+ * Wall posters and banners read from the frames: '2016' (man in a suit on red, yellow year), 'orzadek' (narrow black strip "…ORZĄDEK"),
+ * 'polska' (banner with red letters), 'stadion' (red-and-white flag).
+ */
+export function posterTexture(kind = '2016') {
+  const size = { '2016': [64, 96], orzadek: [32, 96], polska: [128, 40], stadion: [96, 64] }[kind] ?? [64, 96];
+  return tex(size[0], size[1], (ctx, w, h) => {
+    const r = mulberry32(kind.length * 17);
+    if (kind === '2016') {
+      ctx.fillStyle = '#7a1c14'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#14120e'; ctx.fillRect(w * 0.2, h * 0.38, w * 0.6, h * 0.6);           // suit
+      ctx.fillStyle = '#c8b090'; ctx.beginPath(); ctx.ellipse(w / 2, h * 0.3, w * 0.14, h * 0.12, 0, 0, 7); ctx.fill(); // head
+      ctx.fillStyle = '#e8e0d0'; ctx.fillRect(w * 0.44, h * 0.42, w * 0.12, h * 0.3);          // shirt
+      ctx.fillStyle = '#5a1010'; ctx.fillRect(w * 0.48, h * 0.44, w * 0.04, h * 0.26);         // tie
+      ctx.fillStyle = '#e8c830'; ctx.font = 'bold 16px monospace'; ctx.fillText('2016', 8, h - 6);
+    } else if (kind === 'orzadek') {
+      ctx.fillStyle = '#0c0c0a'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#d8d0b0'; ctx.font = 'bold 9px monospace'; ctx.save(); ctx.translate(w - 8, 4); ctx.rotate(Math.PI / 2); ctx.fillText('…ORZĄDEK', 0, 0); ctx.restore();
+    } else if (kind === 'polska') {
+      ctx.fillStyle = '#e8e4d8'; ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#b81c1c'; ctx.font = 'bold 30px monospace'; ctx.fillText('POLSKA', 10, 30);
+    } else {
+      ctx.fillStyle = '#e8e4d8'; ctx.fillRect(0, 0, w, h / 2); ctx.fillStyle = '#b81c1c'; ctx.fillRect(0, h / 2, w, h / 2);
+      ctx.fillStyle = '#3a3a30'; ctx.font = 'bold 14px monospace'; ctx.fillText('STADION', 8, h / 2 - 6);
+    }
+    grain(ctx, w, h, 9 + Math.floor(r() * 9), 140, 0.25);
+  });
+}

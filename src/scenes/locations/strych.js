@@ -35,6 +35,9 @@ export function buildStrych() {
   for (const [z, seed] of [[-0.6, 5], [0.8, 9]]) { const p = P.frame('portrait', seed, 0.36, 0.5); p.position.set(-1.98, 1.3, z); p.rotation.y = Math.PI / 2; scene.add(p); }
   const big = P.frame('landscape', 11, 0.8, 0.5); big.position.set(-1.98, 1.7, 1.1); big.rotation.y = Math.PI / 2; scene.add(big);
 
+  const ord = P.poster('orzadek', 0.18, 0.54); ord.position.set(-1.97, 1.25, -1.0); ord.rotation.y = Math.PI / 2; scene.add(ord);
+  const y16 = P.poster('2016', 0.4, 0.6); y16.position.set(-1.97, 1.25, 0.35); y16.rotation.y = Math.PI / 2; scene.add(y16);
+
   // right wall: a family portrait in a gilt frame, withered roses under it (ep07)
   const gilt = P.frame('portrait', 13, 0.7, 0.9); gilt.position.set(1.98, 1.5, -0.7); gilt.rotation.y = -Math.PI / 2; scene.add(gilt);
   const roses = P.bottle('green'); roses.position.set(1.8, 0.0, -0.7); scene.add(roses);

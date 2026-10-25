@@ -85,6 +85,6 @@ export default {
     { at: 106, sfx: 'creak' }, { glitch: 1 }, { madness: 0.15 },
     { line: { text: 'strych sie obudził', speaker: 'major', pos: { x: 42, y: 90 }, charInterval: 110 } },
     { at: 109, beatEnd: 'strych' },
-    { wait: 2500 }, // black frame at the end of the original
+    { black: 2500 }, // black frame at the end of the original
   ],
 };
