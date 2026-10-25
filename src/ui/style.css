@@ -20,7 +20,7 @@ html, body { margin: 0; height: 100%; background: #000; overflow: hidden; color:
 #hud-rec i { display: inline-block; width: .7em; height: .7em; border-radius: 50%; background: #b3261e;
   margin-right: .4em; animation: blink 1.1s steps(1) infinite; }
 #hud-tape { position: absolute; top: 4%; right: 4%; }
-#hud-hint { position: absolute; bottom: 14%; width: 100%; text-align: center; opacity: .85; }
+#hud-hint { position: absolute; bottom: 22%; width: 100%; text-align: center; opacity: .85; }
 #hud-cams { position: absolute; bottom: 3%; left: 0; width: 100%; display: flex; gap: .6rem; justify-content: center; }
 #hud-cams button { pointer-events: auto; background: rgba(0,0,0,.45); color: var(--beige); border: 1px solid rgba(216,201,163,.5);
   padding: .35rem .7rem; font: inherit; cursor: pointer; }

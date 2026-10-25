@@ -1,10 +1,10 @@
 import { ellipse, roundRect, rgba, drawHead, W } from './draw.js';
 
-/** Major ("wojtek"): leaner, dark hair with a side parting, black sweater with yellow-green stripes and a white polo collar, black tracksuit trousers. */
+/** Major ("wojtek"): leaner, short dark curly hair, red glowing eyes (ep01 frames), black sweater with yellow-green stripes and a white polo collar, black tracksuit trousers. */
 export default {
   id: 'major',
   height: 1.7,
-  face: { w: 60, h: 80, skin: [148, 152, 120], hair: [16, 14, 12], glow: [225, 195, 70], teeth: [200, 190, 150], nose: 0.13, jaw: -0.04, brow: 7, stubble: 90, curly: false, part: true, streak: true, seed: 23 },
+  face: { w: 60, h: 80, skin: [148, 152, 120], hair: [16, 14, 12], glow: [235, 40, 45], teeth: [200, 190, 150], nose: 0.13, jaw: -0.04, brow: 7, stubble: 90, curly: true, part: false, streak: true, seed: 23 },
   draw(ctx, p) {
     const cx = W / 2, by = p.bob, walk = p.walk;
     const legSwing = walk === 1 ? 8 : walk === 2 ? -8 : 0;
