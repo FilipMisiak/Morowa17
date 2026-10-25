@@ -1,7 +1,13 @@
 import { state } from '../core/state.js';
 
 /** Share of a beat's `need` the player must actually capture (the original scenes are short; framing takes a moment). */
-export const NEED_SCALE = 0.6;
+export const NEED_SCALE = 0.7;
+
+const lerp = (a, b, t) => a + (b - a) * t;
+/** Share of a scene's bar that makes its bullet point count as done (rises with difficulty). */
+export const sceneThreshold = (diff) => lerp(0.5, 0.8, diff);
+/** Share of all the footage needed to save the tape (rises with difficulty). */
+export const levelThreshold = (diff) => lerp(0.55, 0.85, diff);
 
 const prettify = (id) => id.replace(/[_-]+/g, ' ').replace(/^./, (c) => c.toUpperCase());
 
@@ -29,6 +35,9 @@ export function createRecording(actors, rig) {
     state.coverage = total ? Math.min(1, got / total) : 1;
   };
 
+  /** Everyone who is on screen must be framed (an actor who has left the scene is not required); a prop scene always counts. */
+  const present = (b) => b.who.filter((a) => actors.isVisible(a));
+  const inFrame = (b) => !b.who.length || (present(b).length > 0 && present(b).every((a) => actors.framed(a, rig.camera)));
   const liveBeat = () => [...beats.values()].find((b) => b.active && b.got < b.need);
 
   return {
@@ -47,29 +56,31 @@ export function createRecording(actors, rig) {
     tick(dt) {
       for (const b of beats.values()) {
         if (!b.active || b.got >= b.need) continue;
-        if (state.cam.raised && b.who.every((a) => actors.framed(a, rig.camera))) b.got = Math.min(b.need, b.got + dt);
+        if (state.cam.raised && inFrame(b)) b.got = Math.min(b.need, b.got + dt);
       }
       refresh();
     },
     /** For the task list: every beat with its progress and phase ('done' | 'live' | 'todo' | 'missed'). */
     list() {
       return [...beats.values()].map((b) => ({
-        id: b.id, label: b.label, need: b.need, got: b.got,
-        phase: b.got >= b.need ? 'done' : b.active ? 'live' : b.got > 0 || b.ended ? 'missed' : 'todo',
+        id: b.id, who: b.who, label: b.label, need: b.need, got: b.got, thr: sceneThreshold(state.diff),
+        phase: b.got >= b.need * sceneThreshold(state.diff) ? 'done' : b.active ? 'live' : b.ended ? 'missed' : 'todo',
       }));
     },
+    /** True while an actorless scene (a prop, a stain, a face in the wall) is being filmed: the creepy shots. */
+    propAnomalyLive: () => state.cam.raised && [...beats.values()].some((b) => b.active && b.got < b.need && b.who.length === 0),
     /** Screen-space offset (NDC) of the live scene's centre; the rig nudges the aim towards it while filming. */
     aimTarget() {
       const b = liveBeat();
       if (!b) return null;
-      return actors.centroid(b.who, rig.camera);
+      return actors.centroid(present(b), rig.camera);
     },
     /** What the viewfinder should tell the player: nothing, "in frame", or which way to turn. */
     hint() {
       const live = liveBeat();
       if (!live) return null;
       const progress = { label: live.label, got: live.got, need: live.need };
-      const miss = live.who.find((a) => !actors.framed(a, rig.camera));
+      const miss = present(live).find((a) => !actors.framed(a, rig.camera)) ?? (present(live).length ? null : live.who[0]);
       if (!miss) return { who: live.who, ok: true, ...progress };
       const x = actors.screenX(miss, rig.camera);
       return { who: live.who, ok: false, ...progress, dir: x > 0.45 && x <= 1.5 ? '►' : x < -0.45 && x >= -1.5 ? '◄' : '◄ ►' };

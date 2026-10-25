@@ -19,7 +19,7 @@ export default {
     // [00:00:00–00:00:45] the house, the masked one at the table
     { caption: { text: 'TAŚMA 2 · ODC. 13', pos: 'top' } },
     { at: 2, line: { text: 'smacznego krzysiu', speaker: 'czerwonooki', ...L } },
-    { at: 4, location: 'chata', camera: 'desk' }, place('czerwonooki', ...MASK),
+    { at: 4, location: 'chata', camera: 'door' }, place('czerwonooki', ...MASK),
     { beat: { id: 'maska', actors: ['czerwonooki'], need: 8 } },
     { at: 6, caption: { text: 'gdzie był ten chłopiec', pos: 'center' } }, { glitch: 0.6 },
     { at: 8, caption: { text: 'i co sie z nim działo', pos: 'center' } },
@@ -55,7 +55,7 @@ export default {
     { at: 99, glitch: 0.5 },
     { at: 102, camera: 'stove' }, place('konon', 1.4, -0.9),
     { at: 110, camera: 'stove' },
-    { at: 113, camera: 'desk' }, ...hide('konon'), place('czerwonooki', ...MASK),
+    { at: 113, camera: 'door' }, ...hide('konon'), place('czerwonooki', ...MASK),
     { at: 116, glitch: 0.7 }, { madness: 0.15 },
     { at: 119, camera: 'stove' }, place('czerwonooki', 1.3, -0.5),
     { at: 121, beatEnd: 'kuchnia' }, ...hide('czerwonooki'),

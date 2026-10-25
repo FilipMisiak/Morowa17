@@ -15,6 +15,8 @@ export const state = {
   selected: null,    // inventory item picked for use on a hotspot
   level: 'idle',     // 'idle' | 'running' | 'won' | 'lost'
   location: 'chata', // current location id (scenes/world.js)
+  levelNo: 1,        // 1..20, position in the playlist
+  diff: 0,           // 0..1 difficulty = (levelNo - 1) / 19; scales chores, madness creep and pass thresholds
 };
 
 /** Fresh level: keeps global time, resets everything the player manages. */

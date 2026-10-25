@@ -40,7 +40,7 @@ export function createDuties({ cabin, actors, rig }) {
 
   function strike(why) {
     state.strikes++;
-    addMadness(0.12);
+    addMadness(0.1 + 0.08 * state.diff);
     kick(1);
     bus.emit('toast', `NIEDOPILNOWANE: ${why}  (${state.strikes}/3)`);
     if (state.strikes >= 3) bus.emit('level:lost', 'Za dużo zaniedbań. Dom wygrał.');
@@ -57,7 +57,7 @@ export function createDuties({ cabin, actors, rig }) {
       if (state.selected !== d.item) { toast(`Potrzebujesz: ${ITEMS[d.item].label}`); return; }
       if (d.consume && !take(d.item)) return;
       delete live[id];
-      addMadness(-0.05);
+      addMadness(-0.08);
       d.solve();
       timers[id] = rand(cfg[id].every);
     });
@@ -74,8 +74,13 @@ export function createDuties({ cabin, actors, rig }) {
   return {
     /** Replaces the schedule (called with the episode's `duties`, or from a `{ duty }` step). */
     configure(next = {}) {
-      cfg = next;
-      for (const id of Object.keys(DEFS)) if (cfg[id]) timers[id] ??= cfg[id].first ?? rand(cfg[id].every);
+      cfg = { ...cfg, ...next };
+      for (const k of Object.keys(cfg)) if (!cfg[k]) delete cfg[k];
+      for (const id of Object.keys(DEFS)) {
+        if (!cfg[id]) continue;
+        if (next[id]?.first != null) timers[id] = next[id].first; // an explicit `first` restarts the clock
+        else timers[id] ??= cfg[id].first ?? rand(cfg[id].every);
+      }
     },
     /** Chores that need an answer right now (for the task list): text, seconds left. */
     active() {
@@ -85,14 +90,14 @@ export function createDuties({ cabin, actors, rig }) {
     },
     reset() { cfg = {}; for (const k of Object.keys(timers)) delete timers[k]; for (const k of Object.keys(live)) delete live[k]; hide.length = 0; },
     update(dt) {
-      if (state.level !== 'running') return;
+      if (state.level !== 'running' || state.location !== 'chata') return; // chores wait while the camera is away from the house
       for (let i = hide.length - 1; i >= 0; i--) if ((hide[i].left -= dt) <= 0) hide.splice(i, 1)[0].fn();
 
       for (const [id, d] of Object.entries(DEFS)) {
         if (!cfg[id]) continue;
         if (live[id] != null) {
           if ((live[id] -= dt) <= 0) { delete live[id]; d.fail(); strike(id === 'hatch' ? 'WŁAZ' : 'PIES'); timers[id] = rand(cfg[id].every); }
-        } else if ((timers[id] -= dt) <= 0) { live[id] = d.window; d.start(); toast(`${d.todo}! ${how(d)}`); }
+        } else if ((timers[id] -= dt) <= 0) { live[id] = cfg[id].window ?? d.window; d.start(); toast(`${d.todo}! ${how(d)}`); }
       }
 
       if (cfg.stove) {

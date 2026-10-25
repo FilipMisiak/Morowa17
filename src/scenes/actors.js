@@ -49,6 +49,8 @@ export function buildActors(scene) {
   character(maskaDef);
   character(brazowyDef);
   tape2Defs.forEach(character);
+  // creepy characters: filming them in frame costs sanity (ordinary people do not)
+  for (const id of ['maska', 'meczennik', 'cien', 'zoltooki', 'czerwonooki', 'chudy', 'kaptur', 'brodacz']) if (ents[id]) ents[id].anomaly = true;
   const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
   bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
@@ -94,13 +96,14 @@ export function buildActors(scene) {
       e.walk = { from: e.group.position.clone(), to: new THREE.Vector3(x, e.group.position.y, z), t: 0, secs };
     },
     /** True while the actor is visible and its head sits inside the central part of the frame. */
-    framed(id, camera, { x = 0.6, y = 0.7 } = {}) {
+    framed(id, camera, { x = 0.8, y = 0.8 } = {}) {
       const e = ents[id];
       if (!e?.group.visible) return false;
       e.head.getWorldPosition(LOOK);
       LOOK.project(camera);
       return LOOK.z < 1 && Math.abs(LOOK.x) < x && Math.abs(LOOK.y) < y;
     },
+    isVisible: (id) => !!ents[id]?.group.visible,
     /** Mean screen position (NDC) of the heads of `ids`; null when none is visible in front of the camera. */
     centroid(ids, camera) {
       let sx = 0, sy = 0, n = 0;
@@ -121,7 +124,7 @@ export function buildActors(scene) {
       LOOK.project(camera);
       return LOOK.z >= 1 ? 2 : LOOK.x;
     },
-    anomalies: () => Object.entries(ents).filter(([, e]) => e.anomaly && e.group.visible).map(([id]) => id),
+    anomalies: () => Object.entries(ents).filter(([, e]) => (e.anomaly || e.lie) && e.group.visible).map(([id]) => id),
     hideAll() { for (const e of Object.values(ents)) { e.group.visible = false; e.walk = null; } },
     update(dt, t, camera) {
       for (const e of Object.values(ents)) {

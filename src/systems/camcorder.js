@@ -48,11 +48,14 @@ export function createCamcorder({ rig, actors, recording }) {
     toggle: () => setRaised(!c().raised),
     update(dt) {
       if (state.level !== 'running') { if (c().raised) setRaised(false); return; }
-      if (!c().raised) { addMadness(-0.012 * dt); recording.tick(dt); return; }
+      if (!c().raised) { addMadness(-0.006 * dt); recording.tick(dt); return; }
       c().tape -= dt / TAPE_SECONDS;
       c().battery -= dt / BATTERY_SECONDS;
-      let drain = 0.004;
-      for (const id of actors.anomalies()) if (actors.framed(id, rig.camera, { x: 0.8, y: 0.8 })) { drain += 0.08; kick(0.12); }
+      // only an anomaly in the picture costs sanity (ordinary scenery does not)
+      let drain = 0;
+      const seen = actors.anomalies().some((id) => actors.framed(id, rig.camera, { x: 0.8, y: 0.8 })) || recording.propAnomalyLive();
+      if (seen) { drain = 0.015 * (0.8 + 0.6 * state.diff); kick(0.12); }
+      state.flags.anomalyInFrame = seen;
       addMadness(drain * dt);
       recording.tick(dt);
       if (c().tape <= 0 || c().battery <= 0) {

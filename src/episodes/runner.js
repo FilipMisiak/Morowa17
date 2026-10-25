@@ -5,6 +5,7 @@ import { playLine } from '../ui/subtitles.js';
 import { speak } from '../audio/voice.js';
 import { sfx } from '../audio/drone.js';
 import { roomSound } from '../audio/room.js';
+import { levelThreshold } from '../systems/recording.js';
 
 const modules = import.meta.glob('./tasma*.js'); // lazy: one chunk per episode
 
@@ -28,8 +29,22 @@ let runToken = 0;
 /** Stops the current run (tape lost, retry, new episode). */
 export const cancelRun = () => { runToken++; };
 
-/** Share of the required footage the player must capture to pass the level. */
-const PASS_COVERAGE = 0.9;
+
+const lerp = (a, b, t) => a + (b - a) * t;
+
+/** Chores every level has; later levels fire them more often and give less time to answer. */
+function defaultDuties(d) {
+  const n = state.levelNo;
+  const duties = {
+    stove: { decay: lerp(0.008, 0.013, d) },
+    hatch: { first: lerp(26, 18, d), every: [lerp(70, 34, d), lerp(100, 52, d)], window: lerp(20, 12, d) },
+  };
+  if (n >= 3) duties.dog = { first: lerp(42, 24, d), every: [lerp(80, 38, d), lerp(110, 58, d)], window: lerp(18, 11, d) };
+  return duties;
+}
+
+/** Starting inventory: enough to do every chore if you pay attention. */
+const defaultItems = (n) => ({ kaseta: 1, bateria: 1, wegiel: 3 + Math.floor(n / 3), klodka: 1, przysmak: 2 + Math.floor(n / 2) });
 
 /** Next episode in the playlist, or null after the last one. */
 export const nextEpisodeId = (id) => {
@@ -45,6 +60,8 @@ export const nextEpisodeId = (id) => {
 export async function runEpisode(ep, ctx) {
   const token = ++runToken;
   resetLevel();
+  state.levelNo = (ep.tape - 1) * 10 + ep.index;
+  state.diff = (state.levelNo - 1) / 19;
   state.episodeId = ep.id;
   state.flags.letter = ep.letter;
   state.tapeSeconds = 0;
@@ -53,9 +70,11 @@ export async function runEpisode(ep, ctx) {
   ctx.actors.hideAll();
   ctx.cabin.setHatch(0);
   ctx.duties.reset();
-  ctx.duties.configure(ep.duties);
+  ctx.duties.configure({ ...defaultDuties(state.diff), ...ep.duties }); // `key: false` in an episode switches a chore off
   ctx.recording.reset(ep.steps);
-  for (const [item, n] of Object.entries(ep.items ?? { kaseta: 1, bateria: 1, wegiel: 2, klodka: 1, przysmak: 2 })) give(item, n);
+  const supplies = defaultItems(state.levelNo);
+  for (const [item, n] of Object.entries(ep.items ?? {})) supplies[item] = Math.max(supplies[item] ?? 0, n);
+  for (const [item, n] of Object.entries(supplies)) give(item, n);
   ctx.clock = { t0: performance.now(), scale: ep.timeScale ?? 1 };
   await ep.setup?.(ctx);
   for (const step of ep.steps ?? []) {
@@ -64,9 +83,10 @@ export async function runEpisode(ep, ctx) {
   }
   if (token !== runToken) return;
   await ep.teardown?.(ctx);
-  const won = state.coverage >= PASS_COVERAGE;
+  const need = levelThreshold(state.diff);
+  const won = state.coverage >= need;
   state.level = won ? 'won' : 'lost';
-  bus.emit('level:end', { won, reason: won ? '' : 'Za mało materiału — nie nagrałeś wszystkich scen.', next: nextEpisodeId(ep.id) });
+  bus.emit('level:end', { won, need, reason: won ? '' : `Za mało materiału — potrzeba ${Math.round(need * 100)}%.`, next: nextEpisodeId(ep.id) });
 }
 
 // ?speed=N shortens scripted waits N times (automated tests only)

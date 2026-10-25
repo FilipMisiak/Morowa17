@@ -45,7 +45,7 @@
  *   ],
  * };
  *
- * Won when coverage >= 99.5% at the end of the steps; lost on 3 strikes, madness 1.0 or missing footage.
+ * Won when coverage reaches the level threshold (55% on level 1 rising to 85% on level 20) at the end of the steps; lost on 3 strikes, madness 1.0 or missing footage.
  * Use the real timestamps of the original episode for ordering and pacing, and keep dialogue VERBATIM.
  */
 export {};

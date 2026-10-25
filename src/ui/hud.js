@@ -8,9 +8,14 @@ const NAMES = { konon: 'Konon', major: 'Major' };
 
 export function createHud(rig, recording, camcorder, duties) {
   const cams = $('hud-cams');
+  // every shot gets a button; episode-only shots (`scripted`) show up once the episode has used them
+  const visibleCams = () => Object.entries(rig.nodes()).filter(([id, n]) => !n.scripted || state.flags.seenCams?.has(id));
+  bus.on('camera', (id) => {
+    if (rig.nodes()[id]?.scripted) (state.flags.seenCams ??= new Set()).add(id);
+  });
   const renderCams = () => {
     cams.innerHTML = '';
-    Object.entries(rig.nodes()).filter(([, n]) => !n.scripted).forEach(([id, n], i) => {
+    visibleCams().forEach(([id, n], i) => {
       const b = document.createElement('button');
       b.textContent = `${i + 1} ${n.label}`;
       b.className = id === state.cameraId ? 'on' : '';
@@ -22,7 +27,7 @@ export function createHud(rig, recording, camcorder, duties) {
   window.addEventListener('keydown', (e) => {
     if (state.flags.typing) return;
     const n = Number(e.key);
-    const ids = Object.entries(rig.nodes()).filter(([, n]) => !n.scripted).map(([id]) => id);
+    const ids = visibleCams().map(([id]) => id);
     if (n >= 1 && n <= ids.length && !state.cam.raised) rig.goTo(ids[n - 1]);
   });
   renderCams();
@@ -65,11 +70,11 @@ export function createHud(rig, recording, camcorder, duties) {
   const tasksEl = $('hud-tasks');
   let tasksHtml = '';
   const esc = (t) => String(t).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-  const bar = (v) => `<span class="tb"><i style="width:${pct(v)}"></i></span>`;
+  const bar = (v, thr) => `<span class="tb"><i style="width:${pct(v)}"></i>${thr ? `<u style="left:${pct(thr)}"></u>` : ''}</span>`;
   const renderTasks = () => {
     const rows = recording.list().map((b) => {
       const mark = b.phase === 'done' ? '✓' : b.phase === 'live' ? '●' : b.phase === 'missed' ? '✖' : '○';
-      return `<div class="task ${b.phase}"><span>${mark} ${esc(b.label)}</span>${b.phase === 'todo' ? '' : bar(b.got / b.need)}</div>`;
+      return `<div class="task ${b.phase}"><span>${mark} ${esc(b.label)}</span>${b.phase === 'todo' ? '' : bar(b.got / b.need, b.thr)}</div>`;
     });
     const letter = state.flags.letter;
     if (letter) {
@@ -105,6 +110,7 @@ export function createHud(rig, recording, camcorder, duties) {
       if (state.cam.raised) {
         const h = recording.hint();
         vf.classList.toggle('ok', !!h?.ok);
+        vf.classList.toggle('anomaly', !!state.flags.anomalyInFrame);
         const who = h?.who.map((w) => NAMES[w] ?? w).join(' + ');
         const blocks = h ? (() => { const n = Math.round((h.got / h.need) * 10); return '▮'.repeat(n) + '▯'.repeat(10 - n); })() : '';
         $('vf-hint').textContent = !h ? 'TERAZ NIC DO NAGRANIA' : h.ok ? `● NAGRYWASZ: ${h.label} (${who})  ${blocks}` : `${h.label}: ${who} POZA KADREM ${h.dir}  ${blocks}`;

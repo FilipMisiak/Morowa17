@@ -44,8 +44,8 @@ export function createCameraRig(aspect = 4 / 3) {
       const n = nodes[state.cameraId];
       if (!n) return;
       if (target && state.cam.raised) {
-        assist.x = Math.max(-0.32, Math.min(0.32, assist.x + target.x * 0.9 * dt));
-        assist.y = Math.max(-0.2, Math.min(0.2, assist.y + target.y * 0.9 * dt));
+        assist.x = Math.max(-0.5, Math.min(0.5, assist.x + target.x * 0.9 * dt));
+        assist.y = Math.max(-0.35, Math.min(0.35, assist.y + target.y * 0.9 * dt));
       } else { assist.x -= assist.x * Math.min(1, dt * 2); assist.y -= assist.y * Math.min(1, dt * 2); }
       sway.x += ((pointer?.x ?? 0) * 0.07 * rig.aim - sway.x) * Math.min(1, dt * 3);
       sway.y += ((pointer?.y ?? 0) * 0.04 * rig.aim - sway.y) * Math.min(1, dt * 3);

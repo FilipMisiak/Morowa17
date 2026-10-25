@@ -124,3 +124,7 @@ html, body { touch-action: none; overscroll-behavior: none; -webkit-tap-highligh
 #hud-tasks .tb { display: block; height: .35em; background: rgba(216,201,163,.18); }
 #hud-tasks .tb i { display: block; height: 100%; background: var(--beige); }
 @media (pointer: coarse) { #hud-tasks { font-size: 10px; max-width: 16em; } }
+#hud-tasks .tb { position: relative; }
+#hud-tasks .tb u { position: absolute; top: -2px; bottom: -2px; width: 2px; background: #8fb35a; }
+#vf.anomaly .c, #vf.anomaly .focus { border-color: #d04030; }
+#vf.anomaly #vf-hint::after { content: "  ⚠ ANOMALIA W KADRZE — OBŁĘD ROŚNIE"; color: #ff6a50; }

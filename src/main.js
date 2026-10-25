@@ -149,7 +149,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'g') kick(1);
 });
 if (params.has('debug')) {
-  window.__m17 = { roomSound, state, rig, cabin, world, actors, audio, play, clamp, bus };
+  window.__m17 = { duties, camcorder, recording, roomSound, state, rig, cabin, world, actors, audio, play, clamp, bus };
   // stable read-only status for automated tests (scripts/test-runner.js) and MCP Puppeteer
   window.__GAME_DEBUG__ = {
     get status() {

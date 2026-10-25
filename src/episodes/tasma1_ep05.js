@@ -49,7 +49,7 @@ export default {
 
     // [00:01:06–00:01:38] outside once more, the bowls, the one on the sofa, the special
     { at: 66, location: 'podworko', camera: 'front' },
-    { at: 69, location: 'chata', camera: 'stove' },
+    { at: 69, location: 'chata', camera: 'door' },
     ...both,
     { beat: { id: 'miska', actors: ['major'], need: 4 } },
     { at: 78, beatEnd: 'miska' },
