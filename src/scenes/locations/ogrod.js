@@ -46,6 +46,10 @@ export function buildOgrod() {
   const ring = add(new THREE.TorusGeometry(0.34, 0.05, 6, 14), lam({ color: 0x6a6a5a }), 0.6, 0.06, 1.8); ring.rotation.x = Math.PI / 2;
   add(new THREE.CircleGeometry(0.32, 14), new THREE.MeshBasicMaterial({ color: 0x000000 }), 0.6, 0.05, 1.8).rotation.x = -Math.PI / 2;
 
+  // ep09: a dark bloody shape in the grass among fallen yellow apples
+  const carcass = add(new THREE.SphereGeometry(0.28, 8, 6), lam({ color: 0x2a0e0a }), -2.0, 0.1, 2.2); carcass.scale.set(1.6, 0.4, 0.9);
+  for (let i = 0; i < 9; i++) add(new THREE.SphereGeometry(0.06, 6, 5), lam({ color: 0x9a9a2a }), -2.8 + rnd() * 2.2, 0.06, 1.2 + rnd() * 2.4);
+
   scene.add(new THREE.HemisphereLight(0xb0d0a0, 0x3a4a2a, 3.4));
   const lamp = new THREE.PointLight(0xd8e0a0, 14, 0, 2); lamp.position.set(0.8, 2.2, -2); scene.add(lamp);
   const moon = new THREE.DirectionalLight(0xa0c0b0, 1.0); moon.position.set(-3, 6, 4); scene.add(moon);
@@ -56,6 +60,7 @@ export function buildOgrod() {
       brama:   { label: 'PODWÓRKO', pos: [-0.5, 2.1, 4.6], look: [0.4, 1.0, -2.5], fov: 58 },
       schowek: { label: 'SCHOWEK',  pos: [-0.4, 1.5, 0.0], look: [1.2, 0.5, -4.4], fov: 55 },
       krzaki:  { label: 'KRZAKI',   pos: [-0.2, 1.4, 3.9], look: [0.6, 0.1, 1.8], fov: 52 },
+      trawa:   { label: 'TRAWA',    pos: [-1.4, 2.6, 3.4], look: [-2.0, 0.0, 2.2], fov: 50 },
     },
     startCamera: 'brama',
     update() {},
