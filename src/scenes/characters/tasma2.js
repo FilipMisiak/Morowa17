@@ -16,4 +16,12 @@ export default [
   garbDef({ id: 'chudy', height: 1.78, face: face({ w: 58, h: 82, skin: [186, 190, 180], hair: [186, 190, 180], glow: [230, 30, 20], stubble: 0, jaw: -0.1, brow: 3, seed: 75 }), torso: '#0a0a0a', pants: '#14141a' }),
   // ep12: pale green face with glowing yellow eyes and an open red mouth
   garbDef({ id: 'zoltooki', height: 1.76, face: face({ w: 60, h: 80, skin: [150, 170, 138], hair: [150, 170, 138], glow: [240, 220, 40], teeth: [230, 226, 190], stubble: 0, jaw: 0.04, brow: 3, seed: 76 }), torso: '#10120e', pants: '#14161a' }),
+  // ep13: the masked one, grey-brown wrinkled face, deep black sockets with red LED points, black hood, dark green hoodie
+  garbDef({ id: 'czerwonooki', height: 1.8, face: face({ w: 66, h: 80, skin: [130, 118, 98], hair: [14, 14, 12], glow: [255, 20, 10], teeth: [200, 190, 160], nose: 0.2, jaw: 0.08, brow: 9, stubble: 0, seed: 77 }), torso: '#1c2a1c', pocket: '#142014', pants: '#101410', hat: { kind: 'hood', color: '#0c120c' } }),
+  // ep13: heavy man in light striped shorts and a dark tee
+  garbDef({ id: 'szorty', height: 1.78, face: face({ w: 66, h: 78, skin: [182, 160, 130], hair: [30, 24, 18], stubble: 80, jaw: 0.06, seed: 78 }), torso: '#16161a', pants: '#a8c8a0' }),
+  // ep13: older man, green cap, rusty sweater with a cream collar, dark gloves
+  garbDef({ id: 'rudy', height: 1.74, face: face({ w: 64, h: 78, skin: [176, 150, 124], hair: [110, 104, 96], stubble: 100, jaw: 0.06, seed: 79 }), torso: '#9a5a2c', pocket: '#caa878', pants: '#2a2a28', gloves: '#14120e', hat: { kind: 'cap', color: '#3a6a34' } }),
+  // ep13: bald man in black sunglasses and a green pocket shirt
+  garbDef({ id: 'okularnik', height: 1.8, face: face({ w: 64, h: 80, skin: [190, 170, 146], hair: [190, 170, 146], glow: [8, 8, 8], stubble: 20, jaw: 0.04, seed: 80 }), torso: '#4a6a3a', pocket: '#e0e0cc', pants: '#2a2c2e', gloves: '#14120e' }),
 ];
