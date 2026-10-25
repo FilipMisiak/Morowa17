@@ -6,7 +6,7 @@ const $ = (id) => document.getElementById(id);
 const pct = (v) => `${Math.round(Math.max(0, Math.min(1, v)) * 100)}%`;
 const NAMES = { konon: 'Konon', major: 'Major' };
 
-export function createHud(rig, recording, camcorder) {
+export function createHud(rig, recording, camcorder, duties) {
   const cams = $('hud-cams');
   const renderCams = () => {
     cams.innerHTML = '';
@@ -54,12 +54,35 @@ export function createHud(rig, recording, camcorder) {
     el.textContent = text;
     el.classList.add('on');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('on'), 2200);
+    toastTimer = setTimeout(() => el.classList.remove('on'), Math.min(7000, 1800 + String(text).length * 55));
   });
   bus.on('cam:empty', () => bus.emit('toast', 'KONIEC TAŚMY / BATERII — użyj zapasu'));
 
   const meters = $('hud-meters');
   const meter = (label, v, bad = false) => `<div class="m"><span>${label}</span><div class="bar ${bad ? 'bad' : ''}"><span style="width:${pct(v)}"></span></div></div>`;
+
+  // task list: scenes to film (with progress), the letter, chores that need an answer now
+  const tasksEl = $('hud-tasks');
+  let tasksHtml = '';
+  const esc = (t) => String(t).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const bar = (v) => `<span class="tb"><i style="width:${pct(v)}"></i></span>`;
+  const renderTasks = () => {
+    const rows = recording.list().map((b) => {
+      const mark = b.phase === 'done' ? '✓' : b.phase === 'live' ? '●' : b.phase === 'missed' ? '✖' : '○';
+      return `<div class="task ${b.phase}"><span>${mark} ${esc(b.label)}</span>${b.phase === 'todo' ? '' : bar(b.got / b.need)}</div>`;
+    });
+    const letter = state.flags.letter;
+    if (letter) {
+      const done = (state.flags.lettersDone ?? 0) > 0;
+      const n = state.flags.letterTyping ? (state.flags.letterTyped ?? 0) : 0;
+      const text = done ? esc(letter) : `<b>${esc(letter.slice(0, n))}</b>${esc(letter.slice(n))}`;
+      rows.push(`<div class="task letter ${done ? 'done' : ''}"><span>${done ? '✓' : '○'} LIST (biurko → kliknij) uspokaja:<br>„${text}”</span></div>`);
+    }
+    for (const d of duties.active()) rows.push(`<div class="task alarm"><span>! ${esc(d.text)}${d.left != null ? ` (${Math.ceil(d.left)}s)` : ''}</span></div>`);
+    const html = `<div class="th">ZADANIA</div>${rows.join('')}`;
+    if (html !== tasksHtml) { tasksHtml = html; tasksEl.innerHTML = html; }
+  };
+  let tasksAt = 0;
 
   return {
     show() { $('hud').hidden = false; renderItems(); },
@@ -68,6 +91,8 @@ export function createHud(rig, recording, camcorder) {
       const s = Math.floor(state.tapeSeconds);
       const p = (v) => String(v).padStart(2, '0');
       $('hud-time').textContent = `${p(Math.floor(s / 3600))}:${p(Math.floor(s / 60) % 60)}:${p(s % 60)}`;
+
+      if (performance.now() - tasksAt > 200) { tasksAt = performance.now(); renderTasks(); }
 
       meters.innerHTML =
         meter('MATERIAŁ', state.coverage) +
@@ -80,7 +105,9 @@ export function createHud(rig, recording, camcorder) {
       if (state.cam.raised) {
         const h = recording.hint();
         vf.classList.toggle('ok', !!h?.ok);
-        $('vf-hint').textContent = !h ? '' : h.ok ? `● NAGRYWASZ: ${h.who.map((w) => NAMES[w] ?? w).join(' + ')}` : `SCENA POZA KADREM ${h.dir}`;
+        const who = h?.who.map((w) => NAMES[w] ?? w).join(' + ');
+        const blocks = h ? (() => { const n = Math.round((h.got / h.need) * 10); return '▮'.repeat(n) + '▯'.repeat(10 - n); })() : '';
+        $('vf-hint').textContent = !h ? 'TERAZ NIC DO NAGRANIA' : h.ok ? `● NAGRYWASZ: ${h.label} (${who})  ${blocks}` : `${h.label}: ${who} POZA KADREM ${h.dir}  ${blocks}`;
         $('vf-stats').textContent = `TAŚMA ${pct(state.cam.tape)}  BAT ${pct(state.cam.battery)}  ZOOM ×${state.cam.zoom.toFixed(1)}`;
       }
       $('hud-rec').style.opacity = state.cam.raised ? 1 : 0.45;

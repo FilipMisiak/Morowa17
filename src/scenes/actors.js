@@ -94,12 +94,24 @@ export function buildActors(scene) {
       e.walk = { from: e.group.position.clone(), to: new THREE.Vector3(x, e.group.position.y, z), t: 0, secs };
     },
     /** True while the actor is visible and its head sits inside the central part of the frame. */
-    framed(id, camera, { x = 0.45, y = 0.55 } = {}) {
+    framed(id, camera, { x = 0.6, y = 0.7 } = {}) {
       const e = ents[id];
       if (!e?.group.visible) return false;
       e.head.getWorldPosition(LOOK);
       LOOK.project(camera);
       return LOOK.z < 1 && Math.abs(LOOK.x) < x && Math.abs(LOOK.y) < y;
+    },
+    /** Mean screen position (NDC) of the heads of `ids`; null when none is visible in front of the camera. */
+    centroid(ids, camera) {
+      let sx = 0, sy = 0, n = 0;
+      for (const id of ids) {
+        const e = ents[id];
+        if (!e?.group.visible) continue;
+        e.head.getWorldPosition(LOOK); LOOK.project(camera);
+        if (LOOK.z >= 1) continue;
+        sx += LOOK.x; sy += LOOK.y; n++;
+      }
+      return n ? { x: sx / n, y: sy / n } : null;
     },
     /** Screen-space x (NDC) of an actor; 2 when it is behind the camera. Feeds the "where is the action" arrow. */
     screenX(id, camera) {

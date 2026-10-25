@@ -111,3 +111,16 @@ html, body { touch-action: none; overscroll-behavior: none; -webkit-tap-highligh
   #menu .shelf button { padding: .9rem .2rem; } }
 @media (pointer: coarse) { #hud { font-size: 13px; } #hud-cams button, #hud-items button, #hud-rec-btn, #hud-tools button { padding: .5rem .7rem; }
   .sub { font-size: clamp(13px, 2.2vw, 22px); } }
+
+/* task list */
+#hud-tasks { position: absolute; top: 31%; left: 4%; max-width: 19em; font-size: .72em; display: grid; gap: .25rem; }
+#hud-tasks .th { letter-spacing: .25em; opacity: .6; }
+#hud-tasks .task { display: grid; gap: .15rem; opacity: .55; }
+#hud-tasks .task.live, #hud-tasks .task.alarm, #hud-tasks .task.letter { opacity: 1; }
+#hud-tasks .task.done { opacity: .4; text-decoration: line-through; }
+#hud-tasks .task.missed { opacity: .45; color: #b3261e; }
+#hud-tasks .task.alarm { color: #ff8a70; }
+#hud-tasks .task.letter b { color: #8fb35a; font-weight: normal; }
+#hud-tasks .tb { display: block; height: .35em; background: rgba(216,201,163,.18); }
+#hud-tasks .tb i { display: block; height: 100%; background: var(--beige); }
+@media (pointer: coarse) { #hud-tasks { font-size: 10px; max-width: 16em; } }

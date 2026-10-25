@@ -1,6 +1,7 @@
 import { state, addMadness, kick } from '../core/state.js';
 import { bus } from '../core/bus.js';
 import { sfx } from '../audio/drone.js';
+import { roomSound } from '../audio/room.js';
 import { take, ITEMS } from './inventory.js';
 
 const rand = ([a, b]) => a + Math.random() * (b - a);
@@ -12,7 +13,7 @@ const rand = ([a, b]) => a + Math.random() * (b - a);
  * Episode config (`duties` in the episode file): { hatch: { first: 20, every: [30, 45] }, dog: {...}, stove: { decay: 0.012 } }
  * Missing key = that duty never fires.
  */
-export function createDuties({ cabin, actors }) {
+export function createDuties({ cabin, actors, rig }) {
   let cfg = {};
   const timers = {};   // id -> seconds until it fires
   const live = {};     // id -> seconds left to answer
@@ -20,13 +21,15 @@ export function createDuties({ cabin, actors }) {
 
   const DEFS = {
     hatch: {
-      hotspot: 'hatch', cam: 'hatch', item: 'klodka', consume: false, window: 14,
-      start() { sfx.creak(1.3); sfx.knock(2); cabin.setHatch(0.3); },
+      hotspot: 'hatch', cam: 'hatch', item: 'klodka', consume: false, window: 18, name: 'WŁAZ',
+      todo: 'Coś stuka we włazie na strych',
+      start() { sfx.creak(1.3); sfx.knock(2); roomSound('knock'); cabin.setHatch(0.3); },
       solve() { cabin.setHatch(0); sfx.knock(1); },
       fail() { cabin.setHatch(1); actors.place('shade', 0.1, -0.3, 0); later(() => { actors.show('shade', false); cabin.setHatch(0); }, 7); },
     },
     dog: {
-      hotspot: 'window', cam: 'window', item: 'przysmak', consume: true, window: 12,
+      hotspot: 'window', cam: 'window', item: 'przysmak', consume: true, window: 16, name: 'PIES',
+      todo: 'Pies skamle pod oknem — nakarm go',
       start() { sfx.bowl(9); },
       solve() { sfx.knock(1); },
       fail() { actors.place('dog', 1.9, 0.4, Math.PI / 2); later(() => actors.show('dog', false), 6); },
@@ -44,6 +47,8 @@ export function createDuties({ cabin, actors }) {
   }
 
   const toast = (t) => bus.emit('toast', t);
+  const camLabel = (d) => rig.nodes()[d.cam]?.label ?? d.cam;
+  const how = (d) => `kamera ${camLabel(d)} → ${ITEMS[d.item].label} → kliknij ${d.hotspot === 'hatch' ? 'właz' : 'okno'}`;
 
   for (const [id, d] of Object.entries(DEFS)) {
     bus.on('interact:' + d.hotspot, () => {
@@ -72,6 +77,12 @@ export function createDuties({ cabin, actors }) {
       cfg = next;
       for (const id of Object.keys(DEFS)) if (cfg[id]) timers[id] ??= cfg[id].first ?? rand(cfg[id].every);
     },
+    /** Chores that need an answer right now (for the task list): text, seconds left. */
+    active() {
+      const out = Object.entries(live).map(([id, left]) => ({ id, left, text: `${DEFS[id].name}: ${DEFS[id].todo} — ${how(DEFS[id])}` }));
+      if (cfg.stove && state.fire < 0.4) out.push({ id: 'stove', left: null, text: `PIEC dogasa — kamera ${rig.nodes().stove?.label ?? 'PIEC'} → WĘGIEL → kliknij piec` });
+      return out;
+    },
     reset() { cfg = {}; for (const k of Object.keys(timers)) delete timers[k]; for (const k of Object.keys(live)) delete live[k]; hide.length = 0; },
     update(dt) {
       if (state.level !== 'running') return;
@@ -81,7 +92,7 @@ export function createDuties({ cabin, actors }) {
         if (!cfg[id]) continue;
         if (live[id] != null) {
           if ((live[id] -= dt) <= 0) { delete live[id]; d.fail(); strike(id === 'hatch' ? 'WŁAZ' : 'PIES'); timers[id] = rand(cfg[id].every); }
-        } else if ((timers[id] -= dt) <= 0) { live[id] = d.window; d.start(); }
+        } else if ((timers[id] -= dt) <= 0) { live[id] = d.window; d.start(); toast(`${d.todo}! ${how(d)}`); }
       }
 
       if (cfg.stove) {

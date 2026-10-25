@@ -22,22 +22,25 @@ export function initRituals({ cabin }) {
     let i = 0;
     typing = state.flags.typing = true;
     cabin.paper.typed('');
-    bus.emit('toast', touch ? 'PISZ — schowaj klawiaturę, by przerwać' : 'PISZ — Esc przerywa');
+    state.flags.letterTyped = 0; state.flags.letterTyping = true;
+    bus.emit('toast', `Przepisz: „${text}” — dobry znak uspokaja, zły dodaje obłędu. ${touch ? 'Schowaj klawiaturę, by przerwać.' : 'Esc przerywa.'}`);
 
     const done = (finished) => {
       window.removeEventListener('keydown', onKey);
       field.removeEventListener('input', onInput); field.removeEventListener('blur', onBlur); field.blur();
-      typing = state.flags.typing = false;
-      if (finished) { addMadness(-0.15); state.flags.lettersDone = (state.flags.lettersDone ?? 0) + 1; bus.emit('letter:done'); }
+      typing = state.flags.typing = false; state.flags.letterTyping = false;
+      if (finished) { addMadness(-0.1); state.flags.lettersDone = (state.flags.lettersDone ?? 0) + 1; bus.emit('letter:done'); }
     };
     const type = (key) => {
       if (plain(key) === plain(text[i])) {
         chatterTick(text[i], { base: 90, madness: state.madness });
+        addMadness(-0.008);
         i++;
+        state.flags.letterTyped = i;
         while (i < text.length && !/[\p{L}\p{N}]/u.test(text[i])) i++; // punctuation and spaces type themselves
         cabin.paper.typed(text.slice(0, i));
         if (i >= text.length) done(true);
-      } else { kick(0.25); addMadness(0.01); }
+      } else { kick(0.4); addMadness(0.04); bus.emit('toast', `Zły znak — następny: ${text[i] === ' ' ? 'spacja' : text[i]}`); }
     };
     const onKey = (e) => {
       if (e.key === 'Escape') return done(false);

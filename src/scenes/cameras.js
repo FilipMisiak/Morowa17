@@ -18,6 +18,7 @@ export const CAMERA_NODES = {
 export function createCameraRig(aspect = 4 / 3) {
   const camera = new THREE.PerspectiveCamera(60, aspect, 0.05, 30);
   const sway = { x: 0, y: 0 };
+  const assist = { x: 0, y: 0 }; // slow auto-tracking of the scene being filmed (radians), on top of the pointer
   let nodes = CAMERA_NODES;
 
   const rig = {
@@ -29,6 +30,7 @@ export function createCameraRig(aspect = 4 / 3) {
     goTo(id) {
       const n = nodes[id];
       if (!n) return;
+      assist.x = assist.y = 0;
       state.cameraId = id;
       camera.position.set(...n.pos);
       camera.fov = (n.fov ?? 60) / state.cam.zoom;
@@ -37,16 +39,21 @@ export function createCameraRig(aspect = 4 / 3) {
       bus.emit('camera:' + id, id);
     },
     /** pointer in NDC (-1..1) gives a few degrees of "breathing" parallax. */
-    update(dt, pointer) {
+    /** `target` = NDC offset of the scene being filmed (or null): while the viewfinder is up the aim drifts towards it. */
+    update(dt, pointer, target = null) {
       const n = nodes[state.cameraId];
       if (!n) return;
+      if (target && state.cam.raised) {
+        assist.x = Math.max(-0.32, Math.min(0.32, assist.x + target.x * 0.9 * dt));
+        assist.y = Math.max(-0.2, Math.min(0.2, assist.y + target.y * 0.9 * dt));
+      } else { assist.x -= assist.x * Math.min(1, dt * 2); assist.y -= assist.y * Math.min(1, dt * 2); }
       sway.x += ((pointer?.x ?? 0) * 0.07 * rig.aim - sway.x) * Math.min(1, dt * 3);
       sway.y += ((pointer?.y ?? 0) * 0.04 * rig.aim - sway.y) * Math.min(1, dt * 3);
       const fov = (n.fov ?? 60) / state.cam.zoom;
       if (Math.abs(camera.fov - fov) > 0.01) { camera.fov += (fov - camera.fov) * Math.min(1, dt * 8); camera.updateProjectionMatrix(); }
       camera.lookAt(...n.look);
-      camera.rotateY(-sway.x);
-      camera.rotateX(sway.y);
+      camera.rotateY(-(sway.x + assist.x));
+      camera.rotateX(sway.y + assist.y);
     },
   };
   return rig;

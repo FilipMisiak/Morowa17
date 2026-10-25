@@ -4,6 +4,7 @@ import { bus } from '../core/bus.js';
 import { playLine } from '../ui/subtitles.js';
 import { speak } from '../audio/voice.js';
 import { sfx } from '../audio/drone.js';
+import { roomSound } from '../audio/room.js';
 
 const modules = import.meta.glob('./tasma*.js'); // lazy: one chunk per episode
 
@@ -28,7 +29,7 @@ let runToken = 0;
 export const cancelRun = () => { runToken++; };
 
 /** Share of the required footage the player must capture to pass the level. */
-const PASS_COVERAGE = 0.995;
+const PASS_COVERAGE = 0.9;
 
 /** Next episode in the playlist, or null after the last one. */
 export const nextEpisodeId = (id) => {
@@ -102,6 +103,7 @@ async function runStep(s, ctx) {
   if (s.give) give(s.give.item ?? s.give, s.give.n ?? 1);
   if (s.duty) ctx.duties.configure(s.duty);
   if (s.sfx) sfx[s.sfx]?.();
+  if (s.room) roomSound(s.room === true ? null : s.room); // sound from the player's room: knock, scratch, steps, breath, drag, slam, ring
   if (s.glitch != null) kick(s.glitch);
   if (s.tint != null) state.tint = s.tint;
   if (s.madness) addMadness(s.madness);

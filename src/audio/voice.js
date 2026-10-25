@@ -12,7 +12,7 @@ import { state } from '../core/state.js';
  *
  *  A  formant mumble through the DEMON chain  (fully processed, always available, carries the "tape" sound)
  *  A2 octave-down double of A, late by ~0.2 s  (the thing speaking underneath)
- *  B  speechSynthesis "ghost": pl-PL voice, minimum rate, minimum pitch  (raw but slowed; masked by A + noise bursts)
+ *  B  speechSynthesis "ghost": pl-PL voice, rate matched to the subtitle pace, low pitch  (raw; masked by A + noise bursts)
  *  D  whisper echo: pitched up, quiet, 0.5–1 s late (an after-image of the line)
  *  C  per-character chatter  (see chatter.js, driven by the subtitle typewriter)
  *
@@ -39,7 +39,7 @@ for (const [id, label, tag, f0] of [
   ['szarak', 'SZARA KURTKA', '#a8b098', 100], ['chudy', 'CHUDY', '#c8d0c0', 75], ['zoltooki', 'ŻÓŁTE OCZY', '#e0d040', 70],
   ['czerwonooki', 'CZERWONE OCZY', '#d86050', 62], ['szorty', 'SZORTY', '#a8c8a0', 96], ['rudy', 'RUDY SWETER', '#c88a50', 104], ['okularnik', 'OKULARY', '#a0b898', 90], ['kamizelka', 'KAMIZELKA', '#d8e030', 92], ['kwiat', 'ZAWINIĄTKO', '#a8b890', 98], ['kratka', 'TORBA', '#e0a030', 100], ['kapelusznik', 'KAPELUSZ', '#b0b090', 85], ['lysy', 'OKULARY', '#c89868', 92], ['poeta', 'POETA', '#d8d0a0', 86], ['czerwona', 'CZERWONA MARYNARKA', '#d85050', 104], ['mundur', 'MUNDUR', '#8aa0d8', 100], ['dres', 'DRES', '#9aa8c0', 96], ['cien', 'CIEŃ', '#c04040', 55], ['brodacz', 'BRODACZ', '#b09878', 80], ['blondyn', 'BLONDYN', '#d8c890', 110], ['kardigan', 'CZERWONY KARDIGAN', '#e08050', 98], ['kogut', 'KOGUTKI', '#d8d4c0', 90], ['kaptur', 'KAPTUR', '#a0a8b0', 78],
 ]) SPEAKERS[id] = { ...SPEAKERS.gospodarz, f0, label, tag };
-SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
+SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a'; SPEAKERS.strych.slow = 0.8;
 
 const chains = new Map();
 function chainFor(name) {
@@ -64,12 +64,13 @@ if ('speechSynthesis' in window) {
 }
 
 let pending = 0;
-function ghost(text, sp) {
+/** Polish speech runs at roughly 13 characters per second at rate 1; match the subtitle typewriter so both layers end together. */
+function ghost(text, sp, charInterval) {
   if (!plVoice && !findVoice()) return;
   if (pending > 2) { speechSynthesis.cancel(); pending = 0; } // keep the queue short, never lag behind the picture
   const u = new SpeechSynthesisUtterance(text);
   u.voice = plVoice; u.lang = plVoice.lang;
-  u.rate = Math.max(0.1, sp.rate);
+  u.rate = Math.min(1.8, Math.max(0.7, 1 / charInterval / 13)) * (sp.slow ?? 1);
   u.pitch = Math.max(0, sp.pitch);
   u.volume = 0.55;
   pending++;
@@ -93,7 +94,7 @@ export function speak(text, { speaker = 'gospodarz', charInterval = 0.055 } = {}
   if (state.madness > 0.25 || Math.random() < 0.4) {                                                              // D
     mumble(chain.input, text, { f0: sp.f0 * 1.6, charInterval: charInterval * 1.15, gain: 0.12, start: t0 + 0.5 + Math.random() * 0.5 });
   }
-  setTimeout(() => ghost(text, sp), 80 + Math.random() * 250);                                                    // B (late on purpose)
+  ghost(text, sp, charInterval);                                                                                  // B (same start, same pace)
   // mask the raw TTS with noise bursts so it never sounds "clean"
   for (let i = 0; i < Math.ceil(dur / 0.7); i++) {
     audio.noiseBurst({ when: t0 + i * 0.7 + Math.random() * 0.3, dur: 0.12, type: 'bandpass', freq: 1500 + Math.random() * 2000, q: 0.7, gain: 0.08 + state.madness * 0.1 });

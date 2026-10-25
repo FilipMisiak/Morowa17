@@ -16,6 +16,7 @@ import { createResult } from './ui/result.js';
 import { initRituals } from './systems/rituals.js';
 import { audio } from './audio/engine.js';
 import { startDrone, updateDrone } from './audio/drone.js';
+import { updateRoom, roomSound } from './audio/room.js';
 import { createHud } from './ui/hud.js';
 import { createMenu, resumeId } from './ui/menu.js';
 import { save } from './core/save.js';
@@ -32,8 +33,8 @@ const actors = buildActors(cabin.scene);
 const world = createWorld({ rig, actors, initial: cabin });
 const recording = createRecording(actors, rig);
 const camcorder = createCamcorder({ rig, actors, recording });
-const duties = createDuties({ cabin, actors });
-const hud = createHud(rig, recording, camcorder);
+const duties = createDuties({ cabin, actors, rig });
+const hud = createHud(rig, recording, camcorder, duties);
 initRituals({ cabin });
 const input = createInput({
   canvas, pipeline,
@@ -94,12 +95,12 @@ function frame(now) {
   const stepped = Math.floor(state.time * fps) / fps;
 
   if (started) {
-    updateSanity(dt, rig.node); camcorder.update(dt); duties.update(dt); updateDrone();
+    updateSanity(dt, rig.node); camcorder.update(dt); duties.update(dt); updateDrone(); updateRoom(dt);
     if (state.level === 'running' && state.madness >= 1) bus.emit('level:lost', 'Powidok stanął tuż obok. Obłęd 100%.');
   }
   actors.update(dt, stepped, rig.camera);
   world.current.update(stepped, state.madness, state.cam.raised);
-  rig.update(dt, input.pointer);
+  rig.update(dt, input.pointer, started ? recording.aimTarget() : null);
   hud.update();
   pipeline.render(world.current.scene, rig.camera, { time: stepped, madness: state.madness, glitch: state.glitch });
   requestAnimationFrame(frame);
@@ -148,7 +149,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'g') kick(1);
 });
 if (params.has('debug')) {
-  window.__m17 = { state, rig, cabin, world, actors, audio, play, clamp, bus };
+  window.__m17 = { roomSound, state, rig, cabin, world, actors, audio, play, clamp, bus };
   // stable read-only status for automated tests (scripts/test-runner.js) and MCP Puppeteer
   window.__GAME_DEBUG__ = {
     get status() {
