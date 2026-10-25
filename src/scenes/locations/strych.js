@@ -35,6 +35,11 @@ export function buildStrych() {
   for (const [z, seed] of [[-0.6, 5], [0.8, 9]]) { const p = P.frame('portrait', seed, 0.36, 0.5); p.position.set(-1.98, 1.3, z); p.rotation.y = Math.PI / 2; scene.add(p); }
   const big = P.frame('landscape', 11, 0.8, 0.5); big.position.set(-1.98, 1.7, 1.1); big.rotation.y = Math.PI / 2; scene.add(big);
 
+  // right wall: a family portrait in a gilt frame, withered roses under it (ep07)
+  const gilt = P.frame('portrait', 13, 0.7, 0.9); gilt.position.set(1.98, 1.5, -0.7); gilt.rotation.y = -Math.PI / 2; scene.add(gilt);
+  const roses = P.bottle('green'); roses.position.set(1.8, 0.0, -0.7); scene.add(roses);
+  for (let i = 0; i < 3; i++) { const r = add(new THREE.SphereGeometry(0.05, 6, 5), lam({ color: 0x4a0c0c }), 1.75 + i * 0.02, 0.5 + i * 0.07, -0.78 + i * 0.07); void r; }
+
   // table with the milk bottle and the green mug
   const table = P.table(); table.position.set(1.0, 0, 0.2); scene.add(table);
   const bottle = P.bottle('green'); bottle.position.set(0.9, 0.78, 0.2); scene.add(bottle);
@@ -49,6 +54,7 @@ export function buildStrych() {
     nodes: {
       sofa:   { label: 'KANAPA',  pos: [0.9, 1.35, 0.9],  look: [-0.5, 1.0, -1.3], fov: 50 },
       plakaty: { label: 'PLAKATY', pos: [1.0, 1.4, 0.4],  look: [-2, 1.4, 0.2],   fov: 55 },
+      portret: { label: 'PORTRET', pos: [0.4, 1.5, -0.7], look: [2, 1.5, -0.7], fov: 45 },
       stol:   { label: 'STÓŁ',    pos: [-0.2, 1.4, 1.3],  look: [1.0, 0.85, 0.2], fov: 50 },
     },
     startCamera: 'sofa',
