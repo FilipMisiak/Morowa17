@@ -51,13 +51,26 @@ export function buildPoeta() {
   for (const dx of [-0.08, 0.08]) add(new THREE.SphereGeometry(0.04, 6, 5), basic({ color: 0xf0f0e0 }), 12 + dx, 1.36, -1.02);
   add(new THREE.BoxGeometry(0.18, 0.04, 0.03), basic({ color: 0xf0f0e0 }), 12, 1.2, -1.02);
 
+  // 4. red room (x = 18, ep18): red curtains, a zebra sofa with a black hat, a table with a laptop and mugs
+  room(18, lam({ color: 0x3a1010 }));
+  for (const x of [16.4, 19.6]) add(new THREE.BoxGeometry(0.9, 2.3, 0.15), lam({ color: 0x9a1a1a }), x, 1.15, -1.9);
+  add(new THREE.BoxGeometry(0.9, 1.1, 0.04), basic({ color: 0xe8e0d0 }), 18, 1.4, -1.95);
+  add(new THREE.BoxGeometry(1.4, 0.5, 0.7), lam({ color: 0xd8d4c8 }), 16.9, 0.25, -1.2);
+  for (let i = 0; i < 4; i++) add(new THREE.BoxGeometry(1.42, 0.06, 0.12), lam({ color: 0x14120e }), 16.9, 0.15 + i * 0.11, -1.2 + (i % 2) * 0.2);
+  add(new THREE.CylinderGeometry(0.12, 0.14, 0.05, 8), lam({ color: 0x0c0c0c }), 17.2, 0.55, -1.2);
+  add(new THREE.BoxGeometry(1.0, 0.05, 0.6), lam({ color: 0x5a3a22 }), 18.8, 0.7, -0.4);
+  add(new THREE.BoxGeometry(0.4, 0.02, 0.28), lam({ color: 0xa8aab0 }), 18.7, 0.75, -0.4);
+  add(new THREE.BoxGeometry(0.4, 0.26, 0.02), basic({ color: 0x8a9a8a }), 18.7, 0.88, -0.55);
+  add(new THREE.CylinderGeometry(0.04, 0.035, 0.09, 6), lam({ color: 0xc03030 }), 19.1, 0.78, -0.3);
+
   scene.add(new THREE.HemisphereLight(0x90805a, 0x2a2018, 1.6));
-  for (const [x, c, i] of [[0.8, 0xffc060, 12], [6, 0xff6a50, 10], [12, 0xe8e8d0, 12]]) { const l = new THREE.PointLight(c, i, 0, 2); l.position.set(x, 1.6, 0); scene.add(l); }
+  for (const [x, c, i] of [[0.8, 0xffc060, 12], [6, 0xff6a50, 10], [12, 0xe8e8d0, 12], [18, 0xff5040, 12]]) { const l = new THREE.PointLight(c, i, 0, 2); l.position.set(x, 1.6, 0); scene.add(l); }
   return {
     scene, hotspots: [], setHover() {},
     nodes: {
       okno:    { label: 'OKNO',     pos: [0.4, 1.4, 1.2],  look: [0.2, 1.3, -1.9], fov: 48 },
       zaslony: { label: 'ZASŁONY',  pos: [6.0, 1.4, 1.2],  look: [6.0, 1.1, -1.6], fov: 55 },
+      czerwony: { label: 'CZERWONY POKÓJ', pos: [18.0, 1.4, 1.3], look: [17.9, 0.9, -1.2], fov: 55 },
       kuchnia: { label: 'KUCHNIA',  pos: [12.0, 1.4, 1.3], look: [12.0, 1.1, -1.6], fov: 50 },
     },
     startCamera: 'okno',

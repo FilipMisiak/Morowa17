@@ -38,4 +38,12 @@ export default [
   garbDef({ id: 'poeta', height: 1.76, face: face({ w: 54, h: 80, skin: [196, 182, 156], hair: [200, 190, 150], glow: [200, 170, 80], stubble: 10, jaw: -0.1, brow: 4, curly: true, seed: 86 }), torso: '#0c0c0c', pants: '#0c0c0c', hat: { kind: 'bucket', color: '#0a0a0a' } }),
   // ep17: thin man in a red blazer, striped tie, light-brown hair combed aside
   garbDef({ id: 'czerwona', height: 1.76, face: face({ w: 56, h: 80, skin: [190, 168, 144], hair: [150, 116, 80], stubble: 20, jaw: -0.06, seed: 87 }), torso: '#a82020', pocket: '#d8d0c0', pants: '#1c1c20' }),
+  // ep18: fair-haired man in a navy uniform with brass buttons and epaulettes
+  garbDef({ id: 'mundur', height: 1.76, face: face({ w: 60, h: 78, skin: [196, 174, 150], hair: [190, 170, 120], stubble: 10, jaw: 0.02, seed: 88 }), torso: '#1a2848', pocket: '#c8a840', pants: '#141c30' }),
+  // ep18: man in a navy tracksuit with a white stripe, short dark hair; also the red-eyed figure of the forest (`cien`)
+  garbDef({ id: 'dres', height: 1.78, face: face({ w: 60, h: 80, skin: [160, 142, 118], hair: [22, 20, 18], stubble: 60, seed: 89 }), torso: '#20283a', stripe: '#e8e8e8', pants: '#20283a', sleeve: '#20283a' }),
+  garbDef({ id: 'cien', height: 1.82, face: face({ w: 58, h: 84, skin: [60, 66, 60], hair: [30, 32, 30], glow: [255, 20, 10], stubble: 0, jaw: -0.06, brow: 8, seed: 90 }), torso: '#2a3a30', stripe: '#d8d8d0', pants: '#2a3a30', sleeve: '#2a3a30' }),
+  // ep18: bald bearded man in a dark polo-neck jumper, and a fair man in a logo T-shirt
+  garbDef({ id: 'brodacz', height: 1.8, face: face({ w: 68, h: 80, skin: [170, 146, 124], hair: [170, 146, 124], stubble: 240, jaw: 0.1, seed: 91 }), torso: '#1c1c22', pants: '#1c1c20' }),
+  garbDef({ id: 'blondyn', height: 1.78, face: face({ w: 60, h: 78, skin: [200, 176, 150], hair: [210, 190, 130], stubble: 10, seed: 92 }), torso: '#c8c8c0', pocket: '#2a2a2a', pants: '#3a4a5a' }),
 ];
