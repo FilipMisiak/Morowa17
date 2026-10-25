@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Morowa 17 — Taśma Zerowa</title>
+</head>
+<body>
+  <canvas id="screen"></canvas>
+
+  <div id="hud" hidden>
+    <div id="hud-rec"><i></i> REC <span id="hud-time">00:00:00</span></div>
+    <div id="hud-tape">TAŚMA <span id="hud-ep">0</span></div>
+    <div id="hud-hint"></div>
+    <div id="hud-cams"></div>
+    <div id="hud-meters"></div>
+    <div id="hud-items"></div>
+    <button id="hud-rec-btn" type="button">● WIZJER</button>
+    <div id="hud-toast"></div>
+    <div id="vf" hidden>
+      <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+      <b class="focus"></b>
+      <div id="vf-hint"></div>
+      <div id="vf-stats"></div>
+    </div>
+  </div>
+  <div id="result" hidden></div>
+  <div id="subs"></div>
+  <div id="menu" hidden></div>
+
+  <div id="start">
+    <div class="box">
+      <h1>MOROWA 17</h1>
+      <p>TAŚMA ZEROWA</p>
+      <button id="btn-start" type="button">▶ WŁÓŻ KASETĘ</button>
+      <small>Jesteś Kamerzystą. PPM / Spacja (trzymaj) — wizjer: nagrywaj scenę, trzymaj aktorów w kadrze. Puść — obsłuż dom (maszyna, właz, piec, pies). Klawisze 1-5: kamery, kółko: zoom, M — wybór odcinka. Zalecane słuchawki.</small>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
