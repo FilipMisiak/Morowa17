@@ -1,4 +1,5 @@
 import { state } from '../core/state.js';
+import { bus } from '../core/bus.js';
 import { chatterTick } from '../audio/chatter.js';
 import { speak, SPEAKERS } from '../audio/voice.js';
 
@@ -53,7 +54,11 @@ export function playLine(entry) {
     let shown = 0;
     const tick = () => {
       const target = Math.min(text.length, Math.floor((performance.now() - start) / ms) + 1);
-      while (shown < target) { chatterTick(text[shown], { base: sp.chatter, madness: state.madness }); shown++; }
+      while (shown < target) {
+        chatterTick(text[shown], { base: sp.chatter, madness: state.madness });
+        if (kind !== 'caption') bus.emit('speak:char', { speaker, ch: text[shown] });
+        shown++;
+      }
       body.textContent = text.slice(0, shown);
       el.classList.toggle('shake', state.madness > 0.55);
       if (shown < text.length) requestAnimationFrame(tick);

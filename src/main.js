@@ -83,7 +83,7 @@ function frame(now) {
     updateSanity(dt, rig.node); camcorder.update(dt); duties.update(dt); updateDrone();
     if (state.level === 'running' && state.madness >= 1) bus.emit('level:lost', 'Powidok stanął tuż obok. Obłęd 100%.');
   }
-  actors.update(dt, stepped);
+  actors.update(dt, stepped, rig.camera);
   cabin.update(stepped, state.madness, state.cam.raised);
   rig.update(dt, input.pointer);
   hud.update();
@@ -110,7 +110,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key.toLowerCase() === 'g') kick(1);
 });
 if (params.has('debug')) {
-  window.__m17 = { state, rig, cabin, actors, audio, play, clamp };
+  window.__m17 = { state, rig, cabin, actors, audio, play, clamp, bus };
   // stable read-only status for automated tests (scripts/test-runner.js) and MCP Puppeteer
   window.__GAME_DEBUG__ = {
     get status() {

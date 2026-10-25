@@ -1,10 +1,16 @@
 import * as THREE from 'three';
 import { psxify } from '../render/psx.js';
+import { state } from '../core/state.js';
+import { bus } from '../core/bus.js';
+import { createSprite } from './characters/sprite.js';
+import { visemeOf } from './characters/draw.js';
+import kononDef from './characters/konon.js';
+import majorDef from './characters/major.js';
 
 const LOOK = new THREE.Vector3();
 
 /**
- * Konon, Major and the anomalies, built from primitives (placeholder puppets; being replaced by drawn 2D character sprites, see docs/PLAN.md §6).
+ * Konon and Major (drawn 2D sprites) and the anomalies (primitives).
  * Everything is parked behind the wall until an episode places it.
  */
 export function buildActors(scene) {
@@ -18,25 +24,21 @@ export function buildActors(scene) {
     ents[id] = { group, anomaly, walk: null, head };
   };
 
-  const person = (id, { coat, skin = 0x8a7a5a, h = 1.75, cap = false }) => {
+  // Konon and Major are drawn 2D sprites (billboards) with animated faces; the mouth follows the typed subtitle.
+  const sprites = {};
+  const character = (def) => {
+    const sp = createSprite(def);
     const g = new THREE.Group();
-    const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, h * 0.5, 0.3), lambert(coat));
-    body.position.y = h * 0.55;
-    const legs = new THREE.Mesh(new THREE.BoxGeometry(0.36, h * 0.3, 0.24), lambert(0x1a1612));
-    legs.position.y = h * 0.15;
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.15, 7, 6), lambert(skin));
-    head.position.y = h * 0.86;
-    g.add(body, legs, head);
-    if (cap) {
-      const c = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.08, 0.34), lambert(0x2a2c1c));
-      c.position.y = h * 0.86 + 0.14;
-      g.add(c);
-    }
-    register(id, g, false, head);
+    g.add(sp.mesh);
+    const head = new THREE.Object3D(); head.position.y = def.height * 0.78; g.add(head);
+    register(def.id, g, false, head);
+    ents[def.id].sprite = sp;
+    sprites[def.id] = sp;
   };
-
-  person('konon', { coat: 0x4a4a2a, h: 1.82 });
-  person('major', { coat: 0x24261a, h: 1.68, cap: true });
+  character(kononDef);
+  character(majorDef);
+  const ALIAS = { gospodarz: 'konon', wspollokator: 'major' };
+  bus.on('speak:char', ({ speaker, ch }) => sprites[ALIAS[speaker] ?? speaker]?.mouth(visemeOf(ch), state.time));
 
   // Strych's shade: tall, flat, black, two pale eyes. Looking at it through the lens costs sanity.
   const shade = new THREE.Group();
@@ -92,8 +94,12 @@ export function buildActors(scene) {
     },
     anomalies: () => Object.entries(ents).filter(([, e]) => e.anomaly && e.group.visible).map(([id]) => id),
     hideAll() { for (const e of Object.values(ents)) { e.group.visible = false; e.walk = null; } },
-    update(dt, t) {
+    update(dt, t, camera) {
       for (const e of Object.values(ents)) {
+        if (e.sprite && e.group.visible) {
+          e.sprite.update(t, state.time, state.madness, !!e.walk);
+          if (camera) e.sprite.mesh.rotation.y = Math.atan2(camera.position.x - e.group.position.x, camera.position.z - e.group.position.z) - e.group.rotation.y;
+        }
         if (!e.walk) continue;
         const w = e.walk;
         w.t = Math.min(1, w.t + dt / w.secs);
