@@ -29,6 +29,7 @@ export const SPEAKERS = {
 SPEAKERS.konon = { ...SPEAKERS.gospodarz, label: 'KONON', tag: '#e6c277' };
 SPEAKERS.major = { ...SPEAKERS.wspollokator, label: 'MAJOR', tag: '#8fc3b0' };
 SPEAKERS.gosc = { ...SPEAKERS.wspollokator, f0: 118, label: 'PAN', tag: '#d8c060' };
+SPEAKERS.zolty = { ...SPEAKERS.wspollokator, f0: 135, label: 'ŻÓŁTA KURTKA', tag: '#d8c820' };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 
 const chains = new Map();
