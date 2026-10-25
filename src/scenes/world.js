@@ -8,6 +8,7 @@ import { bus } from '../core/bus.js';
 const loaders = {
   las: async () => (await import('./locations/las.js')).buildLas(),
   podworko: async () => (await import('./locations/podworko.js')).buildPodworko(),
+  lazienka: async () => (await import('./locations/lazienka.js')).buildLazienka(),
 };
 
 export function createWorld({ rig, actors, initial }) {

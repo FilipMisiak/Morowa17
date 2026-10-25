@@ -205,3 +205,15 @@ export function roofTiles(repeat = [4, 2]) {
     grain(ctx, w, h, 19, 200, 0.2);
   }, repeat);
 }
+
+/** Dirty green-and-cream bathroom tiles. */
+export function tileTexture(repeat = [4, 2]) {
+  return tex(64, 64, (ctx, w, h) => {
+    for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) {
+      const k = 0.85 + ((x * 7 + y * 3) % 5) * 0.05;
+      ctx.fillStyle = `rgb(${110 * k},${150 * k},${96 * k})`; ctx.fillRect(x * 16 + 1, y * 16 + 1, 14, 14);
+    }
+    ctx.fillStyle = '#2a2a1e'; for (let i = 0; i <= 4; i++) { ctx.fillRect(i * 16, 0, 1, h); ctx.fillRect(0, i * 16, w, 1); }
+    grain(ctx, w, h, 23, 260, 0.22);
+  }, repeat);
+}
