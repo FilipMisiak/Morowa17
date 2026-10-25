@@ -16,6 +16,7 @@ const loaders = {
   hala: async () => (await import('./locations/hala.js')).buildHala(),
   festyn: async () => (await import('./locations/festyn.js')).buildFestyn(),
   domek: async () => (await import('./locations/domek.js')).buildDomek(),
+  poeta: async () => (await import('./locations/poeta.js')).buildPoeta(),
   poddasze: async () => (await import('./locations/poddasze.js')).buildPoddasze(),
   zima: async () => (await import('./locations/zima.js')).buildZima(),
   piwnica: async () => (await import('./locations/piwnica.js')).buildPiwnica(),

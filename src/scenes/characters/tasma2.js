@@ -34,4 +34,8 @@ export default [
   garbDef({ id: 'kapelusznik', height: 1.72, face: face({ w: 70, h: 80, skin: [120, 120, 112], hair: [60, 60, 52], glow: [230, 40, 30], stubble: 40, jaw: 0.1, nose: 0.16, seed: 84 }), torso: '#b8662a', pocket: '#3a62c8', pants: '#101012', hat: { kind: 'bucket', color: '#6a6a52' } }),
   // ep16: bald man in wrap-around sunglasses holding a paper sign, dark high-collar hoodie
   garbDef({ id: 'lysy', height: 1.76, face: face({ w: 64, h: 78, skin: [150, 112, 84], hair: [150, 112, 84], glow: [6, 6, 6], stubble: 40, seed: 85 }), torso: '#16161a', pants: '#26282a' }),
+  // ep17: the poet — long black coat, wide-brim black hat, curly light hair, thin pensive face
+  garbDef({ id: 'poeta', height: 1.76, face: face({ w: 54, h: 80, skin: [196, 182, 156], hair: [200, 190, 150], glow: [200, 170, 80], stubble: 10, jaw: -0.1, brow: 4, curly: true, seed: 86 }), torso: '#0c0c0c', pants: '#0c0c0c', hat: { kind: 'bucket', color: '#0a0a0a' } }),
+  // ep17: thin man in a red blazer, striped tie, light-brown hair combed aside
+  garbDef({ id: 'czerwona', height: 1.76, face: face({ w: 56, h: 80, skin: [190, 168, 144], hair: [150, 116, 80], stubble: 20, jaw: -0.06, seed: 87 }), torso: '#a82020', pocket: '#d8d0c0', pants: '#1c1c20' }),
 ];

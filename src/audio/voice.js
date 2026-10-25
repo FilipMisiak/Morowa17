@@ -37,7 +37,7 @@ SPEAKERS.brazowy = { ...SPEAKERS.gospodarz, f0: 100, label: 'BRĄZOWA KURTKA', t
 for (const [id, label, tag, f0] of [
   ['czapka', 'CZAPKA', '#6ac8c0', 110], ['kapelusz', 'KAPELUSZ', '#8ab870', 95], ['bluza', 'ŻÓŁTA BLUZA', '#c8d040', 88],
   ['szarak', 'SZARA KURTKA', '#a8b098', 100], ['chudy', 'CHUDY', '#c8d0c0', 75], ['zoltooki', 'ŻÓŁTE OCZY', '#e0d040', 70],
-  ['czerwonooki', 'CZERWONE OCZY', '#d86050', 62], ['szorty', 'SZORTY', '#a8c8a0', 96], ['rudy', 'RUDY SWETER', '#c88a50', 104], ['okularnik', 'OKULARY', '#a0b898', 90], ['kamizelka', 'KAMIZELKA', '#d8e030', 92], ['kwiat', 'ZAWINIĄTKO', '#a8b890', 98], ['kratka', 'TORBA', '#e0a030', 100], ['kapelusznik', 'KAPELUSZ', '#b0b090', 85], ['lysy', 'OKULARY', '#c89868', 92],
+  ['czerwonooki', 'CZERWONE OCZY', '#d86050', 62], ['szorty', 'SZORTY', '#a8c8a0', 96], ['rudy', 'RUDY SWETER', '#c88a50', 104], ['okularnik', 'OKULARY', '#a0b898', 90], ['kamizelka', 'KAMIZELKA', '#d8e030', 92], ['kwiat', 'ZAWINIĄTKO', '#a8b890', 98], ['kratka', 'TORBA', '#e0a030', 100], ['kapelusznik', 'KAPELUSZ', '#b0b090', 85], ['lysy', 'OKULARY', '#c89868', 92], ['poeta', 'POETA', '#d8d0a0', 86], ['czerwona', 'CZERWONA MARYNARKA', '#d85050', 104],
 ]) SPEAKERS[id] = { ...SPEAKERS.gospodarz, f0, label, tag };
 SPEAKERS.strych.label = 'STRYCH'; SPEAKERS.strych.tag = '#9fb07a';
 
